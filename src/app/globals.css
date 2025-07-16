@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@import "primeicons/primeicons.css";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-error: var(--error);
+  --color-gray: var(--gray);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary: #3972ec;
+  --secondary: #f2f3ff;
+  --gray: #64748b;
+  --error: #dc2626;
+}
