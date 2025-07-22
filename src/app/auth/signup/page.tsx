@@ -1,7 +1,6 @@
 
 import Button from "@/components/base/Button";
 import React from "react";
-import Image from "next/image";
 import Input from "@/components/base/Input";
 import AuthContainer from "@/components/auth/AuthContainer";
 import Link from "next/link";

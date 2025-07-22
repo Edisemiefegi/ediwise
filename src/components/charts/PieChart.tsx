@@ -8,9 +8,13 @@ type dataType = {
   value: number;
 };
 
+type titleType = {
+  name?: string,
+  subheading?: string
+}
 interface LineChartProps {
   data?: Array<dataType>;
-  title?: any;
+  title?: titleType;
   series?: string;
 }
 
@@ -78,8 +82,8 @@ export default function PieChart({
 
   const HeaderContent = (
     <div className=" ">
-      <p className="text-xl font-semibold "><i className="pi pi-bullseye mr-2"></i>{title.name} </p>
-      <p className="text-sm text-gray">{title.subheading}</p>
+      <p className="text-xl font-semibold "><i className="pi pi-bullseye mr-2"></i>{title?.name} </p>
+      <p className="text-sm text-gray">{title?.subheading}</p>
     </div>
   );
 

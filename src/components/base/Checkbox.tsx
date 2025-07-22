@@ -10,7 +10,6 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 export default function Checkbox({
   children,
   rounded,
-  className = "",
   checked,
   ...rest
 }: Props) {

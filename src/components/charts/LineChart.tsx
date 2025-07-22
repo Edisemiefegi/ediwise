@@ -5,14 +5,19 @@ import React, { useMemo } from "react";
 
 type dataType = {
   name: string;
-  values: any;
+  values: Array<number | string>;
   color: string;
 };
+
+type titleType = {
+  name?: string,
+  subheading?: string
+}
 
 interface LineChartProps {
   data?: Array<dataType>;
   labels?: string[];
-  title?: any;
+  title?: titleType;
   series?: string;
 }
 
@@ -27,7 +32,7 @@ export default function LineChart({
       return {
         name: el.name,
         type: "line",
-        data: [...(el.values || [])].map((a) => a * 10) || [],
+        data: el.values || [],
         smooth: true,
         lineStyle: {
           width: 2,
@@ -45,7 +50,7 @@ export default function LineChart({
       return {
         name: el.name,
         type: "line",
-        data: [...(el.values || [])].map((a) => a * 10) || [],
+        data: el.values|| [],
 
         itemStyle: {
           color: el.color,
@@ -53,7 +58,7 @@ export default function LineChart({
         areaStyle: {},
       };
     });
-  }, []);
+  }, [data]);
   // Line Chart Options
   const options = useMemo(
     () => ({
@@ -100,9 +105,9 @@ export default function LineChart({
       <p className="text-xl font-semibold ">
         {" "}
         <i className="pi pi-chart-line mr-2"></i>
-        {title.name}{" "}
+        {title?.name}{" "}
       </p>
-      <p className="text-sm text-gray">{title.subheading}</p>
+      <p className="text-sm text-gray">{title?.subheading}</p>
     </div>
   );
 

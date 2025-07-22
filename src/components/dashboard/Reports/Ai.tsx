@@ -42,8 +42,8 @@ export default function Ai() {
       </div>
 
       <div className="grid lg:grid-cols-2 grid-cols-1 gap-6">
-        {cards.map((item) => (
-          <Card className="flex gap-2 border-l-4  border-l-primary">
+        {cards.map((item, index) => (
+          <Card key={index} className="flex gap-2 border-l-4  border-l-primary">
             <i className={item.icon}></i>
             <div className="space-y-3">
               <h1 className="font-semibold text-lg">{item.heading}</h1>

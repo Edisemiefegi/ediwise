@@ -1,20 +1,26 @@
 import React from "react";
 import Button from "../base/Button";
 
+type actionType = {
+  completed?: string;
+  amount?: number;
+};
+
 type cardtype = {
   heading?: string;
   button?: string;
   text?: string;
   bg?: string;
-  action?: any;
+  action?: actionType;
 };
+
 
 interface Props {
   card: cardtype;
   className?: string;
 }
 
-export default function PlainCard({ card, className }: Props) {
+export default function PlainCard({ card }: Props) {
   return (
     <Button
       variant="outline"

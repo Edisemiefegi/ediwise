@@ -2,12 +2,17 @@ import React from "react";
 import Card from "@/components/base/Card";
 import clsx from "clsx";
 
+type progressType = {
+  name?: string,
+  range?: string
+}
+
 type cardtype = {
   heading?: string;
   icon?: string;
-  amount?: number | any;
+  amount?: number ;
   subheading?: string;
-  progress?: any;
+  progress?: progressType;
   bg?: string;
   outline?: boolean;
   padding?: string
@@ -18,7 +23,7 @@ interface Props {
   className?: string;
 }
 
-export default function CardComponent({ card, className }: Props) {
+export default function CardComponent({ card}: Props) {
   return (
     <Card
       key={card.heading}

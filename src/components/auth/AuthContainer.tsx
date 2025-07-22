@@ -25,7 +25,7 @@ export default function AuthContainer({
 
           <div className="space-y-1">
             <h1 className="text-3xl font-bold">{heading}</h1>
-            <p className="text-gray  ">{subheading} </p>
+            <p className="text-gray">{subheading} </p>
           </div>
 
           {children}

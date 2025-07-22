@@ -1,17 +1,19 @@
 import React from "react";
 import Button from "../base/Button";
 
+type buttonType = {
+  text?: string;
+  icon?: string;
+  outline?: boolean;
+};
+
 interface Props {
   heading?: string;
   text?: string;
-  buttons?: Array<string | any>;
+  buttons?: Array<buttonType>;
 }
 
-export default function Header({
-  heading,
-  text,
-  buttons = [],
-}: Props) {
+export default function Header({ heading, text, buttons = [] }: Props) {
   return (
     <header className="flex lg:flex-row flex-col gap-2 justify-between lg:items-center">
       <div className="space-y-1">

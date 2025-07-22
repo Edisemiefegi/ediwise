@@ -9,7 +9,6 @@ import { usePathname, useRouter } from "next/navigation";
 export type TabOptions = {
   value: string;
   label: string | ReactNode;
-  [key: string]: any;
   path?: string;
 };
 
@@ -68,7 +67,7 @@ export default function Tab({
         className
       )}
     >
-      {options?.map((option, index) => {
+      {options?.map((option) => {
         const isActive = option.path
           ? option.path === pathname
           : option.value === activeTab;

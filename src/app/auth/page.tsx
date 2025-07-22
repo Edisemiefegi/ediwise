@@ -28,8 +28,9 @@ export default function page({}) {
       }
     >
       <form className="w-full text-start space-y-5">
-        {InputField.map((item) => (
+        {InputField.map((item, index) => (
           <Input
+            key={index}
             labelUp={item.label}
             prepend={<i className={item.icon}></i>}
             placeholder={item.placeholder}
@@ -41,8 +42,10 @@ export default function page({}) {
         >
           Forgot password?
         </Button>
-        <Link href="/auth/signup">  <Button block>Sign in</Button></Link>
-       
+        <Link href="/auth/signup">
+          {" "}
+          <Button block>Sign in</Button>
+        </Link>
         <hr className="text-gray-300" />
         <Button variant="outline" block className="">
           <span>

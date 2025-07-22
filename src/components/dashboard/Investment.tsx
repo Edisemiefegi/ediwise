@@ -39,8 +39,8 @@ export default function Investment() {
       <p className="font-semibold text-xl">Holdings</p>
       <p className="text-gray mb-8 mt-1">Your individual stock positions</p>
       <div className="space-y-4">
-        {holdings.map((item) => (
-          <Button className="w-full py-3 !items-start " variant="outline">
+        {holdings.map((item, index) => (
+          <Button key={index} className="w-full py-3 !items-start " variant="outline">
             <div className="flex w-full justify-between items-center">
               <div className="flex gap-2 !text-start">
                 <Button className="bg-secondary !text-primary  rounded-xl">

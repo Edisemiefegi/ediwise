@@ -2,9 +2,19 @@ import React from "react";
 import Card from "../base/Card";
 import Button from "../base/Button";
 
+type iconType = {
+  name?: string;
+  bg?: string;
+};
+
+type progressType = {
+  name?: string;
+  range?: string;
+};
+
 type detailType = {
   heading?: string;
-  icon?: any;
+  icon?: iconType;
   date?: string;
   button?: string;
   text?: string;
@@ -12,7 +22,7 @@ type detailType = {
   icon2?: string;
   icon3?: string;
   subheading?: string;
-  progress?: string | any;
+  progress?: progressType;
 };
 
 interface Props {
@@ -24,8 +34,8 @@ export default function DetailCard({ detail }: Props) {
     <Card className="space-y-6">
       <div className="flex justify-between">
         <div className="flex gap-3">
-          <Button  className={`${detail?.icon.bg} `}>
-            <i className={detail?.icon.name}></i>
+          <Button className={`${detail?.icon?.bg} `}>
+            <i className={detail?.icon?.name}></i>
           </Button>
           <div>
             <p className="font-semibold text-lg"> {detail?.heading}</p>
