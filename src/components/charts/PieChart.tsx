@@ -77,7 +77,7 @@ export default function PieChart({
 
       series: series == "full" ? full : half || [],
     }),
-    [data, title]
+    [data, title, full, half, series]
   );
 
   const HeaderContent = (

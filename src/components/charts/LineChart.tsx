@@ -43,7 +43,7 @@ export default function LineChart({
         showSymbol: true,
       };
     });
-  }, []);
+  }, [data]);
 
   const areaStyle = useMemo(() => {
     return data?.map((el) => {
@@ -97,7 +97,7 @@ export default function LineChart({
       },
       series: series == "lineStyle" ? lineStyle : areaStyle || [],
     }),
-    [data, labels]
+    [data, labels, areaStyle, lineStyle, series]
   );
 
   const HeaderContent = (
