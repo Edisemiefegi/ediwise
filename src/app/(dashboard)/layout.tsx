@@ -42,7 +42,7 @@ export default function Layout({ children }: DashboardLayoutProp) {
           <div className="md:block hidden">
             <h1 className="font-medium text-lg">Welcome back, di!</h1>
             <p className="text-gray">
-              Here"s what"s happening with your finances today.
+              Here is what is happening with your finances today.
             </p>
           </div>
 

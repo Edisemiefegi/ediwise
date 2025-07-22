@@ -1,4 +1,3 @@
-import PlainCard from "@/components/dashboard/PlainCard";
 import React from "react";
 import Card from "@/components/base/Card";
 import Button from "../base/Button";
