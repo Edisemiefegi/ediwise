@@ -78,7 +78,7 @@ export default function Tab({
             variant="text"
             onClick={() => handleClick(option)}
             className={clsx(
-              " md:!py-2 !py-1 md:px-0 !px-2 md:text-sm    text-xs  w-full transition-all duration-100",
+              " md:!py-2 !py-1 md:px-0 !px-2 md:text-sm    text-xs  w-full transition-all duration-50",
               isActive ? activeTabClass : inactiveTab,
               isVertical ? " !justify-start" : ""
             )}

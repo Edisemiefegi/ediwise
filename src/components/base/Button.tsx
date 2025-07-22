@@ -7,7 +7,7 @@ const variantClasses = {
     text: ""
   },
   size: {
-    default: "px-4 py-3",
+    default: "px-4 py-2",
     small: "px-3 py-1 text-sm",
     medium: "p-4"
   },

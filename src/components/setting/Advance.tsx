@@ -1,9 +1,7 @@
 import React from "react";
 import Card from "../base/Card";
 import Button from "../base/Button";
-import Select from "../base/Select";
-import Input from "../base/Input";
-import Switch from "../base/Switch";
+
 
 export default function Advance() {
   return (

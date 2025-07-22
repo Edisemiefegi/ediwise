@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
+import React  from "react";
 import Button from "./Button";
-import Tab, { TabOptions } from "@/components/base/Tab";
+import Tab from "@/components/base/Tab";
 
 interface Props {
   setShowNavbar?: (value: boolean) => void;

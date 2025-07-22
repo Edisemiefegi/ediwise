@@ -7,6 +7,9 @@
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-error: var(--error);
+  --color-green: var(--green);
+  --color-warning: var(--warning);
+  --color-purple: var(--purple);
   --color-gray: var(--gray);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -20,4 +23,7 @@
   --secondary: #f2f3ff;
   --gray: #64748b;
   --error: #dc2626;
+  --green: #0e9e86;
+  --warning: #f78811;
+  --purple: #413cc1;
 }
