@@ -30,7 +30,7 @@ export default function AuthContainer({
 
           {children}
           <Button variant="text" className="text-sm font-normal text-gray">
-            Don't have an account? <span>{link}</span>
+            Dont have an account? <span>{link}</span>
           </Button>
         </Card>
       </div>

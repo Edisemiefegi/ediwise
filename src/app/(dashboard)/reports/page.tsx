@@ -8,7 +8,7 @@ import Analysis from "@/components/dashboard/Reports/Analysis";
 import Trends from "@/components/dashboard/Reports/Trends";
 import Ai from "@/components/dashboard/Reports/Ai";
 
-export default function page() {
+export default function Page() {
   const reportHeader = {
     heading: "Reports & Insights",
     text: "Comprehensive financial analysis and AI-powered insights",

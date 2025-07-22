@@ -9,7 +9,7 @@ interface DashboardLayoutProp {
   children?: ReactNode;
 }
 
-export default function layout({ children }: DashboardLayoutProp) {
+export default function Layout({ children }: DashboardLayoutProp) {
   const [showNavbar, setShowNavbar] = useState(false);
 
   const handleToggle = () => {
@@ -42,7 +42,7 @@ export default function layout({ children }: DashboardLayoutProp) {
           <div className="md:block hidden">
             <h1 className="font-medium text-lg">Welcome back, di!</h1>
             <p className="text-gray">
-              Here's what's happening with your finances today.
+              Here"s what"s happening with your finances today.
             </p>
           </div>
 

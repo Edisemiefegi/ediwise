@@ -9,7 +9,7 @@ import Advance from "@/components/setting/Advance";
 import Notification from "@/components/setting/Notification";
 import Privacy from "@/components/setting/Privacy";
 
-export default function page() {
+export default function Page() {
   const tabs = [
     {
       label: "Profile",
