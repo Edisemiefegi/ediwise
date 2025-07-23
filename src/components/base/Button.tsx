@@ -19,7 +19,7 @@ const variantClasses = {
 type VariantType = keyof (typeof variantClasses)["variant"];
 type SizeType = keyof (typeof variantClasses)["size"];
 
-interface ButtonProps {
+interface ButtonProps  {
   children?: ReactNode;
   className?: string;
   block?: boolean;
@@ -27,7 +27,7 @@ interface ButtonProps {
   variant?: VariantType;
   size?: SizeType;
   asChild?: boolean;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 function Button({

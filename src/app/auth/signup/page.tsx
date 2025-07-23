@@ -1,10 +1,11 @@
-
+"use client"
 import Button from "@/components/base/Button";
 import React from "react";
 import Input from "@/components/base/Input";
 import AuthContainer from "@/components/auth/AuthContainer";
 import Link from "next/link";
 import Checkbox from "@/components/base/Checkbox";
+import { useRouter } from "next/navigation";
 
 export default function page({}) {
 
@@ -31,6 +32,8 @@ export default function page({}) {
     },
   ];
 
+  const router = useRouter()
+
   return (
     <AuthContainer
       heading="Create Your Account"
@@ -56,11 +59,9 @@ export default function page({}) {
           I agree to the <span className="text-primary">Terms of Service</span>{" "}
           and <span className="text-primary"> Privacy Policy</span>
         </Checkbox>
-         <Link href="/">
-          <Button  block>
+          <Button onClick={(e) => {e.preventDefault(),  router.push("/dashboard")}}   block>
          Create Account
         </Button>
-         </Link>
        
         <hr className="text-gray-300" />
       </form>

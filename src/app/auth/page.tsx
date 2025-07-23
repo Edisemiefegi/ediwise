@@ -1,9 +1,12 @@
+"use client"
+
 import Button from "@/components/base/Button";
 import React from "react";
 import Image from "next/image";
 import Input from "@/components/base/Input";
 import AuthContainer from "@/components/auth/AuthContainer";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function page({}) {
   const InputField = [
@@ -18,6 +21,8 @@ export default function page({}) {
       icon: "pi pi-lock",
     },
   ];
+
+  const router = useRouter()
 
   return (
     <AuthContainer
@@ -42,10 +47,9 @@ export default function page({}) {
         >
           Forgot password?
         </Button>
-        <Link href="/auth/signup">
-          {" "}
-          <Button block>Sign in</Button>
-        </Link>
+     
+          <Button onClick={(e) => {e.preventDefault(),  router.push("/dashboard")}} block>Sign in</Button>
+    
         <hr className="text-gray-300" />
         <Button variant="outline" block className="">
           <span>
