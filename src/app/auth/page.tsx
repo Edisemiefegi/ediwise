@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Button from "@/components/base/Button";
 import React from "react";
@@ -22,7 +22,7 @@ export default function Page({}) {
     },
   ];
 
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <AuthContainer
@@ -47,9 +47,15 @@ export default function Page({}) {
         >
           Forgot password?
         </Button>
-     
-          <Button onClick={(e) => {e.preventDefault(),  router.push("/dashboard")}} block>Sign in</Button>
-    
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            router.push("/dashboard");
+          }}
+          block
+        >
+          Sign in
+        </Button>
         <hr className="text-gray-300" />
         <Button variant="outline" block className="">
           <span>

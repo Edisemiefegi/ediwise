@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Button from "@/components/base/Button";
 import React from "react";
 import Input from "@/components/base/Input";
@@ -8,7 +8,6 @@ import Checkbox from "@/components/base/Checkbox";
 import { useRouter } from "next/navigation";
 
 export default function Page({}) {
-
   const InputField = [
     {
       label: "Full Name",
@@ -32,7 +31,7 @@ export default function Page({}) {
     },
   ];
 
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <AuthContainer
@@ -59,10 +58,16 @@ export default function Page({}) {
           I agree to the <span className="text-primary">Terms of Service</span>{" "}
           and <span className="text-primary"> Privacy Policy</span>
         </Checkbox>
-          <Button onClick={(e) => {e.preventDefault(),  router.push("/dashboard")}}   block>
-         Create Account
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            router.push("/dashboard");
+          }}
+          block
+        >
+          Create Account
         </Button>
-       
+
         <hr className="text-gray-300" />
       </form>
     </AuthContainer>
