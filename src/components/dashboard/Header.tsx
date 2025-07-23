@@ -24,7 +24,7 @@ export default function Header({ heading, text, buttons = [] }: Props) {
         {buttons.map((btn) => (
           <div key={btn?.text}>
             {btn?.outline ? (
-              <Button variant="outline">
+              <Button variant="outline" className=" !text-sm sm:text-normal ">
                 <i className={btn?.icon}></i> <span>{btn.text}</span>{" "}
               </Button>
             ) : (

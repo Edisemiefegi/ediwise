@@ -29,7 +29,7 @@ export default function QuickActions() {
       <div className="grid gap-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 w-full">
         {buttons.map((btn) => (
         <div className="w-full"  key={btn.name}>
-          <Button variant="outline" className="flex w-full py-5 !flex-col">
+          <Button variant="outline" className="flex w-full py-5 !px-2  !flex-col">
             <i className={btn.icon}></i> <span>{btn.name}</span>
           </Button>
         </div>

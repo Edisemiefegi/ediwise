@@ -123,10 +123,10 @@ export default function page() {
       </Card>
 
       <div className="grid grid-cols-6 gap-8">
-        <div className="col-span-4">
+        <div className="lg:col-span-4 col-span-6">
           <Investment />
         </div>
-        <div className="col-span-2">
+        <div className="lg:col-span-2 col-span-6">
           <Card className="space-y-3">
             <PieChart
               series="half"

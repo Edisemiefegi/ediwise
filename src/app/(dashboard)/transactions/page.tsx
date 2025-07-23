@@ -151,22 +151,26 @@ export default function page() {
       </div>
 
       {/* filters */}
-      <Card className="space-y-4">
+      <Card className="space-y-4 ">
         <p className="font-semibold text-xl">Filters</p>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4  w-full">
           {filters.map((item, index) => (
             <div key={index}>
               {item.type == "input" && (
-                <Input placeholder={item.placeholder} prepend={item.icon} />
+                <div>
+                  <Input  placeholder={item.placeholder} prepend={item.icon} />
+                </div>
               )}
               {item.type == "select" && (
-                <Select className="text-sm" options={item.options} />
+                <Select className="text-sm " options={item.options} />
               )}
               {item.type == "date" && (
-                <Button variant="outline" className="font-normal text-sm">
+              <div>
+                  <Button variant="outline"  className="font-normal !py-2.5 !px-2.5 sm:px-4 sm:py-2  !rounded-lg  w-full  !text-xs sm:!text-sm" >
                   <i className="pi pi-calendar"></i> Pick a date range
                 </Button>
+              </div>
               )}
             </div>
           ))}
@@ -181,7 +185,7 @@ export default function page() {
         </div>{" "}
         <div className="space-y-3">
           {history.map((item, index) => (
-            <PlainCard key={index} card={item} />
+            <PlainCard key={index} card={item}  />
           ))}
         </div>
       </Card>

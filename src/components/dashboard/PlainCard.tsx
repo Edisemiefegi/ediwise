@@ -14,7 +14,6 @@ type cardtype = {
   action?: actionType;
 };
 
-
 interface Props {
   card: cardtype;
   className?: string;
@@ -26,7 +25,13 @@ export default function PlainCard({ card }: Props) {
       variant="outline"
       className="flex !text-start py-4 !justify-between w-full !items-start"
     >
-      <div className="flex gap-4 items-center ">
+      <div
+        className={`${
+          card?.action
+            ? "md:flex-row flex  md:items-center  flex-col gap-4"
+            : "flex gap-4 items-center  "
+        } `}
+      >
         <div>
           <Button className={`${card.bg} text-xs py-3`}>
             <i className={card.button}></i>
@@ -39,14 +44,15 @@ export default function PlainCard({ card }: Props) {
       </div>
 
       {card.action && (
-        <div className="flex gap-7 items-center">
-          <div>
+        <div className="flex md:flex-row flex-col gap-7 items-end md:items-center">
+          <i className="pi pi-ellipsis-h order-1 md:order-2"></i>
+
+          <div className="order-2 md:order-1">
             <p className="text-primary text-end">${card.action.amount}</p>
             <Button rounded size="small" className="text-xs">
               {card.action.completed}
             </Button>
           </div>
-          <i className="pi pi-ellipsis-h"></i>
         </div>
       )}
     </Button>
