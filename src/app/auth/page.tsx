@@ -8,7 +8,7 @@ import AuthContainer from "@/components/auth/AuthContainer";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function page({}) {
+export default function Page({}) {
   const InputField = [
     {
       label: "Email",

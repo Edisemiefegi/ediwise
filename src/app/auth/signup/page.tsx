@@ -7,7 +7,7 @@ import Link from "next/link";
 import Checkbox from "@/components/base/Checkbox";
 import { useRouter } from "next/navigation";
 
-export default function page({}) {
+export default function Page({}) {
 
   const InputField = [
     {
