@@ -7,10 +7,10 @@ import Tab from "@/components/base/Tab";
 import NotifyCard from "@/components/dashboard/Notification/Card";
 
 interface Props {
-    setShowNotifcation: any
+  setShowNotifcation: any;
 }
 
-export default function Modal({setShowNotifcation}: Props ) {
+export default function Modal({ setShowNotifcation }: Props) {
   const tabs = [
     {
       label: "All",
@@ -106,7 +106,10 @@ export default function Modal({setShowNotifcation}: Props ) {
             Mark all read
           </Button>
           <i className="pi pi-cog"></i>
-          <i className="pi pi-times cursor-pointer" onClick={setShowNotifcation(false)}></i>
+          <i
+            className="pi pi-times cursor-pointer"
+            onClick={setShowNotifcation(false)}
+          ></i>
         </div>
       </div>
 
@@ -119,11 +122,13 @@ export default function Modal({setShowNotifcation}: Props ) {
         ></Tab>
       </div>
 
-      <div className="space-y-4 scroll-y-auto  max-h-[60vh]">
-        {alerts.map((item, index) => (
-          <NotifyCard card={item} key={index} />
-        ))}
-      </div>
+      {currentView && (
+        <div className="space-y-4 scroll-y-auto  max-h-[60vh]">
+          {alerts.map((item, index) => (
+            <NotifyCard card={item} key={index} />
+          ))}
+        </div>
+      )}
     </Card>
   );
 }
