@@ -45,7 +45,7 @@ export default function CustomSelect({
       {label && <p className="font-medium mb-2">{label}</p>}
 
       <div
-        className="border border-gray-300 rounded-lg px-3 py-2 cursor-pointer flex justify-between items-center"
+        className="border dark:border-gray-800 border-gray-300 rounded-lg px-3 py-2 cursor-pointer flex justify-between items-center"
         onClick={() => setOpen((prev) => !prev)}
       >
         <span className="truncate">{value || placeholder}</span>

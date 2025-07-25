@@ -4,6 +4,8 @@ import Button from "@/components/base/Button";
 import Navbar from "@/components/base/Navbar";
 import React, { ReactNode, useState } from "react";
 import clsx from "clsx";
+import { useStore } from "@/store/Store";
+import Notification from "@/components/dashboard/Notification/Modal";
 
 interface DashboardLayoutProp {
   children?: ReactNode;
@@ -11,6 +13,16 @@ interface DashboardLayoutProp {
 
 export default function Layout({ children }: DashboardLayoutProp) {
   const [showNavbar, setShowNavbar] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+
+  const { theme, toggleTheme } = useStore();
+
+  const handleNotification = () => {
+    console.log(showNotification, "b");
+
+    setShowNotification((e) => !e);
+    console.log(showNotification, "a");
+  };
 
   const handleToggle = () => {
     setShowNavbar((prev) => !prev);
@@ -22,7 +34,9 @@ export default function Layout({ children }: DashboardLayoutProp) {
       <div
         className={clsx(
           "relative z-20   h-full",
-          showNavbar === true ? "block" : "md:block hidden xl:w-1/5 lg:w-[30%] md:w-1/3 "
+          showNavbar === true
+            ? "block"
+            : "md:block hidden xl:w-1/5 lg:w-[30%] md:w-1/3 "
         )}
       >
         <Navbar setShowNavbar={setShowNavbar}></Navbar>
@@ -37,8 +51,8 @@ export default function Layout({ children }: DashboardLayoutProp) {
       )}
 
       {/* main content */}
-      <div className="xl:w-4/5 md:w-4/6 w-full   flex-1 overflow-y-auto ">
-        <div className="border-b px-6 pt-4 pb-2 border-gray-300  flex items-center justify-between ">
+      <div className="xl:w-4/5 md:w-4/6 w-full dark:bg-gray-950 dark:text-white   flex-1 overflow-y-auto ">
+        <div className="border-b dark:border-gray-800 px-6 pt-4 pb-2 border-gray-300  flex items-center justify-between ">
           <div className="md:block hidden">
             <h1 className="font-medium text-lg">Welcome back, di!</h1>
             <p className="text-gray">
@@ -55,8 +69,27 @@ export default function Layout({ children }: DashboardLayoutProp) {
           </Button>
 
           <div className="flex gap-8 items-center">
-            <i className="pi pi-bell"></i>
-            <i className="pi pi-moon"></i>
+            {showNotification && (
+              <div
+                className="fixed inset-0 bg-black/60  "
+                onClick={() => setShowNotification(false)}
+              >
+                <div  onClick={(e) => e.stopPropagation()}   className="absolute   left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mx-auto md:w-1/2  w-full">
+                  <Notification setShowNotifcation={setShowNotification} />
+                </div>
+              </div>
+            )}
+            <i
+              className="pi pi-bell cursor-pointer"
+              onClick={handleNotification}
+            ></i>
+            <span className="cursor-pointer" onClick={toggleTheme}>
+              {theme == "dark" ? (
+                <i className="pi pi-sun"></i>
+              ) : (
+                <i className="pi pi-moon "></i>
+              )}
+            </span>{" "}
             <div className="w-10 h-10 rounded-full bg-secondary"></div>
           </div>
         </div>

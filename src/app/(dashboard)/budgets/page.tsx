@@ -63,25 +63,25 @@ export default function page() {
       bg: "bg-transparent",
     },
     {
-      button: "pi pi-exclamation-triangle text-black ",
+      button: "pi pi-exclamation-triangle text-black dark:text-white ",
       heading: "Entertainment",
       text: "B0% of budget used",
       bg: "bg-transparent",
     },
     {
-      button: "pi pi-exclamation-triangle text-black ",
+      button: "pi pi-exclamation-triangle text-black  dark:text-white",
       heading: "Housing",
       text: "Budget exceeded by $0.00",
       bg: "bg-transparent",
     },
     {
-      button: "pi pi-exclamation-triangle text-black  ",
+      button: "pi pi-exclamation-triangle text-black  dark:text-white ",
       heading: "Housing",
       text: "Budget exceeded by $0.00",
       bg: "bg-transparent",
     },
     {
-      button: "pi pi-exclamation-triangle  text-black ",
+      button: "pi pi-exclamation-triangle  text-black dark:text-white ",
       heading: "Housing",
       text: "Budget exceeded by $0.00",
       bg: "bg-transparent",
@@ -104,7 +104,7 @@ export default function page() {
     {
       icon: {
         name: "pi pi-credit-card text-primary",
-        bg: "!bg-secondary",
+        bg: "!bg-secondary dark:!bg-gray-700",
       },
       heading: "Entertainment",
       subheading: "$180 of $200",
@@ -120,7 +120,7 @@ export default function page() {
     {
       icon: {
         name: "pi pi-credit-card text-primary",
-        bg: "!bg-secondary",
+        bg: "!bg-secondary dark:!bg-gray-700",
       },
       heading: "Entertainment",
       subheading: "$180 of $200",
@@ -136,7 +136,7 @@ export default function page() {
     {
       icon: {
         name: "pi pi-credit-card text-primary",
-        bg: "!bg-secondary",
+        bg: "!bg-secondary dark:!bg-gray-700",
       },
       heading: "Entertainment",
       subheading: "$180 of $200",
@@ -152,7 +152,7 @@ export default function page() {
     {
       icon: {
         name: "pi pi-credit-card text-primary",
-        bg: "!bg-secondary",
+        bg: "!bg-secondary dark:!bg-gray-700",
       },
       heading: "Entertainment",
       subheading: "$180 of $200",
@@ -187,7 +187,7 @@ export default function page() {
     ],
   };
 
-  const PieChartData = {
+  const pieChartData = {
     title: {
       name: "Spending Distribution",
       subheading: "How you're spending your money this month",
@@ -244,7 +244,7 @@ export default function page() {
       {/* char */}
       <div className=" flex gap-6 lg:flex-row flex-col">
         <Card>
-          <PieChart data={PieChartData.data} title={PieChartData.title} />
+          <PieChart data={pieChartData.data} title={pieChartData.title} />
         </Card>
         <Card>
           <LineChart

@@ -32,7 +32,7 @@ export default function CardComponent({ card}: Props) {
       <p
         className={clsx(
           "flex justify-between items-center ",
-          card.outline ? "text-black" : "text-gray-100"
+          card.outline ? "text-black dark:text-white" : "text-gray-100"
         )}
       >
         <span>{card.heading}</span> <i className={card.icon}></i>

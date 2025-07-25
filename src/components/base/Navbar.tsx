@@ -93,8 +93,8 @@ export default function Navbar({ setShowNavbar }: Props) {
   ];
 
   return (
-    <nav className=" bg-secondary h-screen xl:w-1/5 lg:w-[29%] md:w-1/3 w-2/3 fixed border-r border-gray-300">
-      <div className="border-b p-6 border-gray-300 flex gap-2">
+    <nav className=" bg-secondary dark:bg-gray-900 dark:text-white  h-screen xl:w-1/5 lg:w-[29%] md:w-1/3 w-2/3 fixed border-r dark:border-gray-800 border-gray-300">
+      <div className="border-b p-6 dark:border-gray-800 border-gray-300 flex gap-2">
         <Button size="small">
           <i className="pi pi-wallet "></i>
         </Button>

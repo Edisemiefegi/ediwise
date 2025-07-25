@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 const variantClasses = {
   variant: {
     default: "bg-primary text-white hover:opacity-75",
-    outline: "border border-gray-300 text-black  hover:bg-secondary",
+    outline: "border dark:border-gray-800 dark:text-white border-gray-300 text-black dark:hover:bg-gray-700  hover:bg-secondary",
     text: ""
   },
   size: {
@@ -28,6 +28,8 @@ interface ButtonProps  {
   size?: SizeType;
   asChild?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  type?: string;
+  disabled?: boolean
 }
 
 function Button({

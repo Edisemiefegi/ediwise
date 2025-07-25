@@ -43,7 +43,7 @@ export default function Transactions({ transactions , heading = 'Recent Transact
                 <Button
                   rounded
                   size="small"
-                  className="bg-secondary !text-black !py-1 text-xs"
+                  className="bg-secondary dark:bg-gray-700 dark:!text-white !text-black !py-1 text-xs"
                 >
                   {item.button}
                 </Button>

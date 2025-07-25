@@ -43,7 +43,7 @@ export default function Investment() {
           <Button key={index} className="w-full py-3 !items-start " variant="outline">
             <div className="flex w-full justify-between items-center">
               <div className="flex gap-2 !text-start">
-                <Button className="bg-secondary !text-primary  rounded-xl">
+                <Button className="bg-secondary dark:bg-blue-950 !text-primary  rounded-xl">
                   {item.button}
                 </Button>
                 <p>

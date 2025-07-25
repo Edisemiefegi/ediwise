@@ -27,7 +27,7 @@ export default function Tab({
   options = [],
   className = "",
   setShowNavbar,
-  activeTabClass = "bg-white ",
+  activeTabClass = "bg-white dark:bg-black dark:text-white ",
   inactiveTab = "text-gray hover:bg-white/20",
   defaultValue,
   onChange,
@@ -63,7 +63,7 @@ export default function Tab({
   return (
     <div
       className={clsx(
-        "flex items-center  bg-secondary p-1  rounded-xl justify-evenly w-full",
+        "flex items-center dark:bg-gray-900  bg-secondary p-1  rounded-xl justify-evenly w-full",
         className
       )}
     >

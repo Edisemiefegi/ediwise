@@ -16,9 +16,9 @@ export default function AuthContainer({
   subheading = "Sign in to your account to manage your finances",
 }: AuthLayoutProp) {
   return (
-    <div className="bg-secondary w-full  h-fit  text-center">
+    <div className="bg-secondary dark:bg-gray-900 dark:text-white w-full  h-fit  text-center">
       <div className=" mx-auto md:w-lg w-full py-0 md:py-6 ">
-        <Card className="space-y-6">
+        <Card className="space-y-6 min-h-screen md:h-fit">
           <Button size="medium">
             <i className="pi pi-wallet text-2xl"></i>
           </Button>
