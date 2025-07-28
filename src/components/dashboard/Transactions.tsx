@@ -32,8 +32,8 @@ export default function Transactions({ transactions , heading = 'Recent Transact
         </div>{" "}
       </div>
       <div className="space-y-3 ">
-        {transactions?.map((item) => (
-          <div key={item.button} className="flex justify-between  w-full">
+        {transactions?.map((item, index) => (
+          <div key={index} className="flex justify-between  w-full">
             <div>
               <p className="font-medium text-sm">{item.heading}</p>
               <p className="text-gray text-xs">{item.date}</p>

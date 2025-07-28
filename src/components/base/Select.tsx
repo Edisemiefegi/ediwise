@@ -62,11 +62,11 @@ export default function CustomSelect({
       </div>
 
       {open && (
-        <ul className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md max-h-60 overflow-y-auto">
+        <ul className="absolute z-10 mt-1 w-full dark:bg-gray-900 dark:border-gray-800 bg-white border border-gray-300 rounded-lg shadow-md max-h-60 overflow-y-auto">
           {options.map((item, index) => (
             <li
               key={index}
-              className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${
+              className={`px-4 py-2 dark:hover:bg-gray-800 hover:bg-gray-100 cursor-pointer ${
                 item === value ? "bg-gray-100 font-medium" : ""
               }`}
               onClick={() => handleSelect(item)}

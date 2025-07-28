@@ -7,10 +7,10 @@ import Tab from "@/components/base/Tab";
 import NotifyCard from "@/components/dashboard/Notification/Card";
 
 interface Props {
-  setShowNotifcation: any;
+  setShowNotification: any;
 }
 
-export default function Modal({ setShowNotifcation }: Props) {
+export default function Modal({ setShowNotification }: Props) {
   const tabs = [
     {
       label: "All",
@@ -94,7 +94,7 @@ export default function Modal({ setShowNotifcation }: Props) {
   };
 
   return (
-    <Card className="space-y-6 h-screen  md:max-h-[90vh] overflow-hidden  ">
+    <Card className=" bg-white dark:bg-gray-900 space-y-6 h-screen  md:max-h-[90vh] overflow-hidden  ">
       <div className="flex justify-between items-center">
         <p className="font-medium  text-lg space-x-1">
           <i className="pi pi-bell"></i> <span> Notifications</span>
@@ -108,7 +108,7 @@ export default function Modal({ setShowNotifcation }: Props) {
           <i className="pi pi-cog"></i>
           <i
             className="pi pi-times cursor-pointer"
-            onClick={setShowNotifcation(false)}
+            onClick={() => setShowNotification(false)}
           ></i>
         </div>
       </div>

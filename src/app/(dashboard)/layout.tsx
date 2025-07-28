@@ -2,10 +2,10 @@
 
 import Button from "@/components/base/Button";
 import Navbar from "@/components/base/Navbar";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useState, useEffect } from "react";
 import clsx from "clsx";
 import { useStore } from "@/store/Store";
-import Notification from "@/components/dashboard/Notification/Modal";
+import Modal from "@/components/dashboard/Notification/Modal";
 
 interface DashboardLayoutProp {
   children?: ReactNode;
@@ -23,6 +23,10 @@ export default function Layout({ children }: DashboardLayoutProp) {
     setShowNotification((e) => !e);
     console.log(showNotification, "a");
   };
+
+  useEffect(() => {
+    console.log(showNotification, "updated value");
+  }, [showNotification]);
 
   const handleToggle = () => {
     setShowNavbar((prev) => !prev);
@@ -69,16 +73,27 @@ export default function Layout({ children }: DashboardLayoutProp) {
           </Button>
 
           <div className="flex gap-8 items-center">
-            {showNotification && (
-              <div
-                className="fixed inset-0 bg-black/60  "
-                onClick={() => setShowNotification(false)}
-              >
-                <div  onClick={(e) => e.stopPropagation()}   className="absolute   left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mx-auto md:w-1/2  w-full">
-                  <Notification setShowNotifcation={setShowNotification} />
+            <div >
+              {showNotification && (
+                <div
+                  className="fixed z-40 inset-0 bg-black/60  "
+                  onClick={() => {
+                    console.log("Backdrop clicked, closing modal");
+                    setShowNotification(false);
+                  }}
+                >
+                  <div
+                    onClick={(e) => {
+                      console.log("Modal clicked, stop propagation");
+                      e.stopPropagation();
+                    }}
+                    className="absolute  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mx-auto md:w-1/2  w-full"
+                  >
+                    <Modal setShowNotification={setShowNotification} />
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>{" "}
             <i
               className="pi pi-bell cursor-pointer"
               onClick={handleNotification}
