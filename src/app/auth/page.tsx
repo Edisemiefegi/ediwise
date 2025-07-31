@@ -103,7 +103,7 @@ export default function Page() {
           handleChange,
           handleBlur,
           handleSubmit,
-          isSubmitting,
+        
         }) => (
           <form onSubmit={handleSubmit} className="w-full text-start space-y-5">
             {inputFields.map((field) => {
