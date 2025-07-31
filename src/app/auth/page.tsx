@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -9,46 +9,72 @@ import { Formik } from "formik";
 import Button from "@/components/base/Button";
 import Input from "@/components/base/Input";
 import AuthContainer from "@/components/auth/AuthContainer";
-
-type FormValues = {
-  email: string;
-  password: string;
-};
-
-const inputFields: Array<{
-  label: string;
-  placeholder: string;
-  icon: string;
-  type: string;
-  name: keyof FormValues;
-}> = [
-  {
-    label: "Email",
-    placeholder: "Enter your email",
-    icon: "pi pi-envelope",
-    type: "email",
-    name: "email",
-  },
-  {
-    label: "Password",
-    placeholder: "Enter your password",
-    icon: "pi pi-lock",
-    type: "password",
-    name: "password",
-  },
-];
+import { useAuth } from "@/store/Auth";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Page() {
   const router = useRouter();
+  const { signinUser } = useAuth();
+  const [loading, setloading] = useState(false);
+
+  type FormValues = {
+    email: string;
+    password: string;
+  };
+
+  const inputFields: Array<{
+    label: string;
+    placeholder: string;
+    icon: string;
+    type: string;
+    name: keyof FormValues;
+  }> = [
+    {
+      label: "Email",
+      placeholder: "Enter your email",
+      icon: "pi pi-envelope",
+      type: "email",
+      name: "email",
+    },
+    {
+      label: "Password",
+      placeholder: "Enter your password",
+      icon: "pi pi-lock",
+      type: "password",
+      name: "password",
+    },
+  ];
+
+  const handleSignin = async (values: FormValues) => {
+    try {
+      setloading(true);
+      await signinUser(values.email, values.password);
+      toast.success("sign in successful");
+      router.push("/dashboard");
+      // console.log(user, "user from store");
+    } catch (error) {
+      let message = "An error occurred during sign in";
+
+      if (error instanceof Error) {
+        message = error.message;
+      }
+      toast.error(message);
+      throw error;
+    } finally {
+      setloading(false);
+    }
+  };
 
   return (
     <AuthContainer
       link={
         <Link href="/auth/signup" className="text-primary">
-          Sign in
+          Sign up
         </Link>
       }
     >
+      <ToastContainer />
+
       <Formik<FormValues>
         initialValues={{ email: "", password: "" }}
         validate={(values) => {
@@ -66,7 +92,7 @@ export default function Page() {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
-            router.push("/dashboard");
+            handleSignin(values);
           }, 400);
         }}
       >
@@ -108,7 +134,7 @@ export default function Page() {
               Forgot password?
             </Button>
 
-            <Button type="submit" disabled={isSubmitting} block>
+            <Button type="submit" disabled={loading} loading={loading} block>
               Sign in
             </Button>
 

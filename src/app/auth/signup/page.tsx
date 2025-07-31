@@ -1,14 +1,21 @@
 "use client";
 import Button from "@/components/base/Button";
-import React from "react";
+import React, { useState } from "react";
 import Input from "@/components/base/Input";
 import AuthContainer from "@/components/auth/AuthContainer";
 import Link from "next/link";
 import Checkbox from "@/components/base/Checkbox";
 import { useRouter } from "next/navigation";
 import { Formik } from "formik";
+import { useAuth } from "@/store/Auth";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Page({}) {
+  const { signupUser } = useAuth();
+
+  const router = useRouter();
+  const [loading, setloading] = useState(false);
+
   type FormValues = {
     email: string;
     password: string;
@@ -53,7 +60,37 @@ export default function Page({}) {
     },
   ];
 
-  const router = useRouter();
+  const handleSubmit = async (values: FormValues) => {
+    try {
+      setloading(true);
+      const { email, password, name } = values;
+      const userData = {
+        email,
+        name,
+        password,
+        id: "",
+        profile: "",
+        createdAt: new Date().toISOString(),
+        monthlyIncome: 0,
+        monthlyExpense: 0,
+        hideBalance: false,
+        totalAssets: 0,
+        totalLiabilities: 0,
+      };
+
+      await signupUser(userData);
+      toast.success("Sign up successful");
+      router.push("/dashboard");
+    } catch (error) {
+      let message = "An error occurred during sign in";
+      if (error instanceof Error) {
+        message = error.message;
+      }
+      toast.error(message);
+    } finally {
+      setloading(false);
+    }
+  };
 
   return (
     <AuthContainer
@@ -67,6 +104,8 @@ export default function Page({}) {
         </Link>
       }
     >
+      <ToastContainer />
+
       <Formik<FormValues>
         initialValues={{ email: "", password: "", name: "", confirm: "" }}
         validate={(values) => {
@@ -89,7 +128,7 @@ export default function Page({}) {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
-            router.push("/dashboard");
+            handleSubmit(values);
           }, 400);
         }}
       >
@@ -127,7 +166,7 @@ export default function Page({}) {
               <span className="text-primary">Terms of Service</span> and{" "}
               <span className="text-primary"> Privacy Policy</span>
             </Checkbox>
-            <Button type="submit" block>
+            <Button type="submit" loading={loading} disabled={loading} block>
               Create Account
             </Button>
 

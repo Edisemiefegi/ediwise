@@ -29,7 +29,8 @@ interface ButtonProps  {
   asChild?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: string;
-  disabled?: boolean
+  disabled?: boolean;
+  loading?: boolean;
 }
 
 function Button({
@@ -39,6 +40,8 @@ function Button({
   rounded = false,
   variant = "default",
   size = "default",
+  loading = false,
+  disabled = false,
   onClick,
 }: ButtonProps) {
   
@@ -57,8 +60,10 @@ function Button({
   // .filter(Boolean).join Combines all classes while skipping false or undefined values.
 
   return (
-    <button onClick={onClick} className={computedClass}>
+    <button disabled={disabled} onClick={onClick} className={computedClass}>
       {children}
+      {loading &&  <i className="pi pi-spin pi-spinner"></i> }
+     
     </button>
   );
 }
