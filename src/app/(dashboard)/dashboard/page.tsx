@@ -11,7 +11,7 @@ import QuickActions from "@/components/dashboard/QuickActions";
 import { useRouter } from "next/navigation";
 import useUser from "@/hooks/useUser";
 
-export default function page() {
+export default function Page() {
   const router = useRouter();
   const { user, getUserTransactions } = useUser();
   const [transactions, setTransactions] = useState<any[]>([]);

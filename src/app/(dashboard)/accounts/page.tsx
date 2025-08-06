@@ -56,7 +56,7 @@ export default function Page() {
       setUserAccounts(accounts);
     };
     fetchAccounts();
-  }, [userAccounts]);
+  }, [userAccounts, getUserAccounts]);
 
   // total assests, liabilities and networth card
   const cards = [
@@ -232,8 +232,8 @@ export default function Page() {
             expense: liability,
           };
           return (
-            <div>
-              <DetailCard key={index} detail={data} />
+            <div key={index}>
+              <DetailCard  detail={data} />
             </div>
           );
         })}
@@ -249,8 +249,8 @@ export default function Page() {
           </p>
         </div>{" "}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {accounts.map((account) => (
-            <PlainCard key={account.heading} card={account} />
+          {accounts.map((account, index) => (
+            <PlainCard key={index} card={account} />
           ))}
         </div>
         <div>

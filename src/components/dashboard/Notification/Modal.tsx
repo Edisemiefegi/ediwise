@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Card from "@/components/base/Card";
 import Button from "@/components/base/Button";
 import Tab from "@/components/base/Tab";
 import NotifyCard from "@/components/dashboard/Notification/Card";

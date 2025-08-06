@@ -1,8 +1,7 @@
 "use client";
 
-import React, { Children, ReactNode, useState } from "react";
+import React, {  ReactNode, } from "react";
 import Card from "@/components/base/Card";
-import Button from "@/components/base/Button";
 
 type HeaderType = {
   heading: string;

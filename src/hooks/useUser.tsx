@@ -13,7 +13,6 @@ import {
   updateDoc,
   query,
   orderBy,
-  addDoc,
 } from "@/service/firebase";
 import { User } from "@/types";
 
@@ -55,21 +54,21 @@ export default function useUser() {
     }
   };
 
-  const addNotification = async (data: any) => {
-    const notification = {
-      id: "",
-      message: data.message,
-      userid: user?.id,
-      type: data.type,
-      title: data.title,
-    };
+  // const addNotification = async (data: any) => {
+  //   const notification = {
+  //     id: "",
+  //     message: data.message,
+  //     userid: user?.id,
+  //     type: data.type,
+  //     title: data.title,
+  //   };
 
-    const docRef = doc(collection(db, "notifications"));
-    console.log(docRef);
-    notification.id = docRef.id;
-    await setDoc(docRef, notification);
-    console.log(notification, "notification");
-  };
+  //   const docRef = doc(collection(db, "notifications"));
+  //   console.log(docRef);
+  //   notification.id = docRef.id;
+  //   await setDoc(docRef, notification);
+  //   console.log(notification, "notification");
+  // };
 
   const addAccount = async (formData: any): Promise<void> => {
     const data = {
