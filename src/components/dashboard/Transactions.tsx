@@ -18,7 +18,7 @@ interface Props {
   button?: buttonType
 }
 
-export default function Transactions({ transactions , heading = 'Recent Transactions', icon = 'pi-wallet', text = 'Your latest financial activity', }: Props) {
+export default function Transactions({ transactions , heading = 'Recent Transactions', icon = 'pi-wallet', text = 'Your latest financial activity', button = {}}: Props) {
   return (
     <Card className="space-y-6 shadow-none">
       <div className="flex justify-between gap-0.5">
