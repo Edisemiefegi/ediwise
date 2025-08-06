@@ -1,11 +1,12 @@
 import React from "react";
 import Card from "@/components/base/Card";
 import Button from "../base/Button";
+import { buttonType } from "@/types";
 
 interface TransactionType {
-  button?: string;
-  heading?: string;
-  date?: string;
+  description?: string;
+  createdAt?: string;
+  category?: string;
   amount?: number;
 }
 
@@ -14,7 +15,7 @@ interface Props {
   heading?: string;
   icon?: string;
   text?: string
-  button?: string
+  button?: buttonType
 }
 
 export default function Transactions({ transactions , heading = 'Recent Transactions', icon = 'pi-wallet', text = 'Your latest financial activity', button = 'View All'}: Props) {
@@ -28,15 +29,15 @@ export default function Transactions({ transactions , heading = 'Recent Transact
           <p className="text-gray text-sm"> {text}</p>
         </div>{" "}
         <div>
-          <Button className="text-sm sm:text-normal"  variant="outline">{button}</Button>
+          <Button className="text-sm sm:text-normal" onClick={button.onclick}  variant="outline">{button.text}</Button>
         </div>{" "}
       </div>
       <div className="space-y-3 ">
         {transactions?.map((item, index) => (
           <div key={index} className="flex justify-between  w-full">
             <div>
-              <p className="font-medium text-sm">{item.heading}</p>
-              <p className="text-gray text-xs">{item.date}</p>
+              <p className="font-medium text-sm">{item.description}</p>
+              <p className="text-gray text-xs">{item.createdAt}</p>
             </div>
             <div className="flex gap-1">
               <div>
@@ -45,7 +46,7 @@ export default function Transactions({ transactions , heading = 'Recent Transact
                   size="small"
                   className="bg-secondary dark:bg-gray-700 dark:!text-white !text-black !py-1 text-xs"
                 >
-                  {item.button}
+                  {item.category}
                 </Button>
               </div>
               <p className="text-lg font-medium text-green">${item.amount}</p>

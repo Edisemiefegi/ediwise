@@ -4,8 +4,10 @@ import Button from "@/components/base/Button";
 import Navbar from "@/components/base/Navbar";
 import React, { ReactNode, useState, useEffect } from "react";
 import clsx from "clsx";
-import { useStore } from "@/store/Store";
+import { useTheme } from "@/store/Theme";
 import Modal from "@/components/dashboard/Notification/Modal";
+import useUser from "@/hooks/useUser";
+import Card from "@/components/base/Card";
 
 interface DashboardLayoutProp {
   children?: ReactNode;
@@ -14,8 +16,10 @@ interface DashboardLayoutProp {
 export default function Layout({ children }: DashboardLayoutProp) {
   const [showNavbar, setShowNavbar] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
-  const { theme, toggleTheme } = useStore();
+  const { theme, toggleTheme } = useTheme();
+  const { user, logout } = useUser();
 
   const handleNotification = () => {
     console.log(showNotification, "b");
@@ -56,9 +60,9 @@ export default function Layout({ children }: DashboardLayoutProp) {
 
       {/* main content */}
       <div className="xl:w-4/5 md:w-4/6 w-full dark:bg-gray-950 dark:text-white   flex-1 overflow-y-auto ">
-        <div className="border-b dark:border-gray-800 px-6 pt-4 pb-2 border-gray-300  flex items-center justify-between ">
+        <div className="border-b sticky  top-0 bg-white z-40 dark:bg-gray-950 dark:border-gray-800 px-6 pt-4 pb-2 border-gray-300  flex items-center justify-between ">
           <div className="md:block hidden">
-            <h1 className="font-medium text-lg">Welcome back, di!</h1>
+            <h1 className="font-medium text-lg">Welcome back, {user?.name}</h1>
             <p className="text-gray">
               Here is what is happening with your finances today.
             </p>
@@ -73,25 +77,9 @@ export default function Layout({ children }: DashboardLayoutProp) {
           </Button>
 
           <div className="flex gap-8 items-center">
-            <div >
+            <div>
               {showNotification && (
-                <div
-                  className="fixed z-40 inset-0 bg-black/60  "
-                  onClick={() => {
-                    console.log("Backdrop clicked, closing modal");
-                    setShowNotification(false);
-                  }}
-                >
-                  <div
-                    onClick={(e) => {
-                      console.log("Modal clicked, stop propagation");
-                      e.stopPropagation();
-                    }}
-                    className="absolute  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mx-auto md:w-1/2  w-full"
-                  >
-                    <Modal setShowNotification={setShowNotification} />
-                  </div>
-                </div>
+                <Modal setShowNotification={setShowNotification} />
               )}
             </div>{" "}
             <i
@@ -105,7 +93,26 @@ export default function Layout({ children }: DashboardLayoutProp) {
                 <i className="pi pi-moon "></i>
               )}
             </span>{" "}
-            <div className="w-10 h-10 rounded-full bg-secondary"></div>
+            <div className=" w-10 h-10">
+              <Button
+                rounded
+                onClick={() => setShowProfile((prev) => !prev)}
+                className="w-full h-full bg-secondary"
+              ></Button>
+              {showProfile && (
+                <div className="absolute  w-40 right-8 top-17 transition-all duration-300 ease-in-out">
+                  <Card className=" w-fit">
+                    <Button
+                      variant="text"
+                      onClick={logout}
+                      className="text-sm w-fit text-error"
+                    >
+                      <i className="pi pi-sign-out"></i> Logout
+                    </Button>
+                  </Card>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

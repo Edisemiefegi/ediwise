@@ -12,6 +12,7 @@ import {
   setDoc,
   doc,
   getDoc,
+  getDocs, updateDoc, orderBy, query,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -39,4 +40,5 @@ export {
   doc,
   getDoc,
   onAuthStateChanged,
+  getDocs, updateDoc, orderBy, query,
 };

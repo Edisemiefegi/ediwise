@@ -5,8 +5,9 @@ export interface Props {
   className?: string;
   label?: string;
   placeholder?: string;
-  onChange?: (value: string | number) => void;
+  onChange?: (value: string | any) => void;
   value?: string | number;
+  name?: string;
 }
 
 export default function CustomSelect({
@@ -16,11 +17,11 @@ export default function CustomSelect({
   placeholder = "Select an option",
   onChange,
   value,
+  name,
 }: Props) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -36,7 +37,17 @@ export default function CustomSelect({
   }, []);
 
   const handleSelect = (item: string | number) => {
-    onChange?.(item);
+    if (onChange && name) {
+      // Formik-compatible event
+      onChange({
+        target: {
+          name,
+          value: item,
+        },
+      });
+    }
+    // console.log("Selected:", item);
+
     setOpen(false);
   };
 
@@ -48,7 +59,9 @@ export default function CustomSelect({
         className="border dark:border-gray-800 border-gray-300 rounded-lg px-3 py-2 cursor-pointer flex justify-between items-center"
         onClick={() => setOpen((prev) => !prev)}
       >
-        <span className="truncate">{value || placeholder}</span>
+        <span className="truncate">
+          {value !== undefined && value !== "" ? value : placeholder}
+        </span>
         <svg
           className={`w-4 h-4 transform transition-transform ${
             open ? "rotate-180" : ""
@@ -57,7 +70,12 @@ export default function CustomSelect({
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path d="M19 9l-7 7-7-7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M19 9l-7 7-7-7"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </div>
 

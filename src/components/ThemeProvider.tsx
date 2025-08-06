@@ -1,6 +1,6 @@
 "use client"
 
-import { useStore } from '@/store/Store'
+import { useTheme } from '@/store/Theme'
 import React, {  ReactNode, useEffect } from 'react'
 
 
@@ -9,7 +9,7 @@ interface Props {
 }
 export default function ThemeProvider({children}: Props) {
 
-const {theme} = useStore()
+const {theme} = useTheme()
 useEffect(() => {
   document.documentElement.classList.toggle("dark", theme === "dark");
 }, [theme])

@@ -1,11 +1,8 @@
 import React from "react";
 import Button from "../base/Button";
+import { buttonType } from "@/types";
 
-type buttonType = {
-  text?: string;
-  icon?: string;
-  outline?: boolean;
-};
+
 
 interface Props {
   heading?: string;
@@ -24,11 +21,11 @@ export default function Header({ heading, text, buttons = [] }: Props) {
         {buttons.map((btn) => (
           <div key={btn?.text}>
             {btn?.outline ? (
-              <Button variant="outline" className=" !text-sm sm:text-normal ">
+              <Button onClick={btn?.onclick}  variant="outline" className=" !text-sm sm:text-normal ">
                 <i className={btn?.icon}></i> <span>{btn.text}</span>{" "}
               </Button>
             ) : (
-              <Button>
+              <Button onClick={btn?.onclick} className=" !text-sm sm:text-normal ">
                 <i className={btn?.icon}></i> <span>{btn.text}</span>{" "}
               </Button>
             )}

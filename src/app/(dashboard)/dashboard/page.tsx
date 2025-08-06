@@ -1,15 +1,23 @@
+"use client";
+
 import Header from "@/components/dashboard/Header";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CardComponent from "../../../components/dashboard/CardComponent";
 import Card from "@/components/base/Card";
 import Transactions from "@/components/dashboard/Transactions";
 import PieChart from "@/components/charts/PieChart";
 import LineChart from "@/components/charts/LineChart";
 import QuickActions from "@/components/dashboard/QuickActions";
+import { useRouter } from "next/navigation";
+import useUser from "@/hooks/useUser";
 
 export default function page() {
+  const router = useRouter();
+  const { user, getUserTransactions } = useUser();
+  const [transactions, setTransactions] = useState<any[]>([]);
+
   const dashboardHeader = {
-    heading: "Good afternoon, di! 👋",
+    heading: `Good day, ${user?.name} 👋`,
     text: "Here's your financial overview for July 21, 2025",
     buttons: [
       {
@@ -20,6 +28,7 @@ export default function page() {
         text: "View Reports",
         icon: "pi pi-calendar",
         outline: true,
+        onclick: () => router.push("/reports"),
       },
     ],
   };
@@ -57,90 +66,67 @@ export default function page() {
     },
   ];
 
-  const history = [
-    {
-      button: "food ",
-      heading: "Grocery Shopping",
-      date: " Jan 15, 2024",
-      amount: 74646,
-    },
-    {
-      button: "icome",
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [transactionsData] = await Promise.all([getUserTransactions()]);
+        setTransactions(transactionsData.slice(0, 5));
+      } catch (err) {
+        console.error("Failed to fetch accounts or transactions", err);
+      }
+    };
 
-      heading: "Salary Payment",
-      date: " Jan 01, 2024",
-      amount: 74646,
-    },
-    {
-      button: "investment ",
+    fetchData();
+  }, [getUserTransactions]);
 
-      heading: "Grocery Shopping",
-      date: " Jan 15, 2024",
-      amount: 74646,
+  const history = {
+    btn: {
+      text: "View All",
+      onclick: () => router.push('/transactions'),
     },
-    {
-      button: "food ",
-
-      heading: "Salary Payment",
-      date: " Jan 01, 2024",
-      amount: 74646,
-    },
-    {
-      button: "food ",
-
-      heading: "Grocery Shopping",
-      date: " Jan 15, 2024",
-      amount: 74646,
-    },
-    {
-      button: "food ",
-
-      heading: "Salary Payment",
-      date: " Jan 01, 2024",
-
-      amount: 74646,
-    },
-  ];
+    transaction: transactions,
+  };
   const bills = {
+    button: { text: "Manage Bills ", onclick: () => router.push("/budgets") },
     history: [
       {
-        button: "food ",
-        heading: "Grocery Shopping",
-        date: " Jan 15, 2024",
+        category: "food ",
+        description: "Grocery Shopping",
+        createdAt: " Jan 15, 2024",
         amount: 74646,
       },
       {
-        button: "icome",
+        category: "icome",
 
-        heading: "Salary Payment",
-        date: " Jan 01, 2024",
+        description: "Salary Payment",
+        createdAt: " Jan 01, 2024",
         amount: 74646,
       },
       {
-        button: "investment ",
+        category: "investment ",
 
-        heading: "Grocery Shopping",
-        date: " Jan 15, 2024",
+        description: "Grocery Shopping",
+        createdAt: " Jan 15, 2024",
         amount: 74646,
       },
       {
-        button: "food ",
+        category: "food ",
 
-        heading: "Salary Payment",
-        date: " Jan 01, 2024",
+        description: "Salary Payment",
+        createdAt: " Jan 01, 2024",
         amount: 74646,
       },
       {
-        button: "food ",
+        category: "food ",
 
-        heading: "Grocery Shopping",
-        date: " Jan 15, 2024",
+        description: "Grocery Shopping",
+        createdAt: " Jan 15, 2024",
         amount: 74646,
       },
       {
-        button: "food ",
+        category: "food ",
 
-        heading: "Salary Payment",
+        description: "Salary Payment",
         date: " Jan 01, 2024",
 
         amount: 74646,
@@ -227,13 +213,19 @@ export default function page() {
 
       {/* history */}
       <div className=" flex gap-6 lg:flex-row flex-col">
-        <Transactions transactions={history} />
+        {/* {history.transaction.map((item, index) => {
+          const data = {heading: item.description, text: item.category, d}
+          return <div>
+
+          </div>
+        })} */}
+        <Transactions transactions={history.transaction} button={history.btn} />
         <Transactions
           transactions={bills.history}
           heading={bills.heading}
           icon={bills.icon}
           text={bills.text}
-          button="Manage Bills "
+          button={bills.button}
         />
       </div>
 

@@ -9,12 +9,13 @@ import { Formik } from "formik";
 import Button from "@/components/base/Button";
 import Input from "@/components/base/Input";
 import AuthContainer from "@/components/auth/AuthContainer";
-import { useAuth } from "@/store/Auth";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
+import useUser from "@/hooks/useUser";
 
 export default function Page() {
   const router = useRouter();
-  const { signinUser } = useAuth();
+
+  const {login} = useUser();
   const [loading, setloading] = useState(false);
 
   type FormValues = {
@@ -48,13 +49,12 @@ export default function Page() {
   const handleSignin = async (values: FormValues) => {
     try {
       setloading(true);
-      await signinUser(values.email, values.password);
+      await login(values.email, values.password);
       toast.success("sign in successful");
       router.push("/dashboard");
       // console.log(user, "user from store");
     } catch (error) {
       let message = "An error occurred during sign in";
-
       if (error instanceof Error) {
         message = error.message;
       }
@@ -73,7 +73,6 @@ export default function Page() {
         </Link>
       }
     >
-      <ToastContainer />
 
       <Formik<FormValues>
         initialValues={{ email: "", password: "" }}

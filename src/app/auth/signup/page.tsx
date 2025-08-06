@@ -7,11 +7,11 @@ import Link from "next/link";
 import Checkbox from "@/components/base/Checkbox";
 import { useRouter } from "next/navigation";
 import { Formik } from "formik";
-import { useAuth } from "@/store/Auth";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import useUser from "@/hooks/useUser";
 
 export default function Page({}) {
-  const { signupUser } = useAuth();
+  const {register} = useUser()
 
   const router = useRouter();
   const [loading, setloading] = useState(false);
@@ -76,9 +76,11 @@ export default function Page({}) {
         hideBalance: false,
         totalAssets: 0,
         totalLiabilities: 0,
+  
+        
       };
 
-      await signupUser(userData);
+      await register(userData);
       toast.success("Sign up successful");
       router.push("/dashboard");
     } catch (error) {
@@ -104,7 +106,6 @@ export default function Page({}) {
         </Link>
       }
     >
-      <ToastContainer />
 
       <Formik<FormValues>
         initialValues={{ email: "", password: "", name: "", confirm: "" }}

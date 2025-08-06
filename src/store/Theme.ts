@@ -9,7 +9,7 @@ interface ThemeState {
   setTheme: (theme: Theme) => void;
 }
 
-export const useStore = create<ThemeState>()(
+export const useTheme = create<ThemeState>()(
   persist(
     (set, get) => ({
       theme: "light",

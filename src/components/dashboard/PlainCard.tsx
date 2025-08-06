@@ -12,6 +12,7 @@ type cardtype = {
   text?: string;
   bg?: string;
   action?: actionType;
+  expense?: string;
 };
 
 interface Props {
@@ -48,7 +49,13 @@ export default function PlainCard({ card }: Props) {
           <i className="pi pi-ellipsis-h order-1 md:order-2"></i>
 
           <div className="order-2 md:order-1">
-            <p className="text-primary text-end">${card.action.amount}</p>
+            <p
+              className={` text-end ${
+                card?.expense == "Expense" ? "text-error" : "text-green"
+              } `}
+            >
+              {card?.action?.amount && `$ ${card?.action?.amount}`}
+            </p>
             <Button rounded size="small" className="text-xs">
               {card.action.completed}
             </Button>

@@ -23,6 +23,7 @@ type detailType = {
   icon3?: string;
   subheading?: string;
   progress?: progressType;
+  expense?: boolean
 };
 
 interface Props {
@@ -49,7 +50,7 @@ export default function DetailCard({ detail }: Props) {
 
       <div className="flex justify-between">
         <p>{detail?.text}</p>
-        <p className="text-xl text-green font-bold">
+        <p className={`text-xl  ${detail?.expense ? 'text-error' : 'text-green'} font-bold`}>
           {" "}
           {detail?.amount && `$ ${detail?.amount}`}
         </p>

@@ -1,103 +1,89 @@
+"use client";
+
 import Header from "@/components/dashboard/Header";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CardComponent from "../../../components/dashboard/CardComponent";
 import Card from "@/components/base/Card";
 import PlainCard from "@/components/dashboard/PlainCard";
 import Button from "@/components/base/Button";
 import DetailCard from "@/components/dashboard/DetailCard";
+import useUser from "@/hooks/useUser";
+import { toast } from "react-toastify";
+import Form, { InputField } from "@/components/base/Form";
 
-export default function page() {
+export default function Page() {
+  const [showModal, setShowModal] = useState(false);
+  const { getUserAccounts, addAccount } = useUser();
+  const [userAccounts, setUserAccounts] = useState<any[]>([]);
+  const [hidebalences, setHideBalances] = useState(false);
+
   const accountHeader = {
     heading: "Accounts",
     text: "Manage your bank accounts and financial connections",
     buttons: [
       {
-        text: "Hide Balances",
-        icon: "pi pi-eye",
+        text: hidebalences ? "Hide Balances" : "Show Balances",
+        icon: hidebalences ? "pi pi-eye-slash" : "pi pi-eye",
         outline: true,
+        onclick: () => setHideBalances(!hidebalences),
       },
       {
         text: "Add Account",
         icon: "pi pi-plus",
+        onclick: () => setShowModal(true),
       },
     ],
   };
 
+  const asssts = userAccounts.filter((acct) => acct.acctType !== "Credit Card");
+  const liabilities = userAccounts.filter(
+    (acct) => acct.acctType == "Credit Card"
+  );
+
+  const totalAssets = asssts.reduce(
+    (acc, curr) => acc + parseFloat(curr.balance || "0"),
+    0
+  );
+  const totalLiabilities = liabilities.reduce(
+    (acc, curr) => acc + parseFloat(curr.balance || "0"),
+    0
+  );
+  const netWorth = totalAssets - totalLiabilities;
+
+  useEffect(() => {
+    const fetchAccounts = async () => {
+      const accounts = await getUserAccounts();
+      setUserAccounts(accounts);
+    };
+    fetchAccounts();
+  }, [userAccounts]);
+
+  // total assests, liabilities and networth card
   const cards = [
     {
       heading: "Total Assets",
+      amount: hidebalences ? totalAssets : "****",
       icon: "pi pi-arrow-up-right",
-      amount: 27,
-      subheading: "Across 3 accounts",
+      subheading: `Across  ${asssts.length} accounts`,
       bg: "!bg-green",
     },
     {
       heading: "Total Liabilities",
       icon: "pi pi-arrow-down-left",
-      amount: 27,
-      subheading: "Across 3 accounts",
+      amount: hidebalences ? totalLiabilities : "****",
+      subheading: `Across  ${liabilities.length} accounts`,
       bg: "!bg-warning",
     },
     {
       heading: "Net Worth",
       icon: "pi pi-wallet",
-      amount: 26,
+      amount: hidebalences ? netWorth : "****",
       subheading: "Assets minus liabilities",
       bg: "!bg-purple",
     },
   ];
 
-  const otherCards = [
-    {
-      icon: { name: "pi pi-credit-card", bg: "!bg-primary" },
-      heading: "Primary Checking",
-      subheading: "Chase Bank • ****1234",
-      text: "Balance",
-      amount: 33450,
-      button: "connected",
-      date: "Updated 1/15/2024",
-      icon2: "pi pi-ellipsis-h",
-      icon3: "pi pi-cog",
-    },
-    {
-      icon: { name: "pi pi-credit-card", bg: "!bg-purple" },
-      heading: "Emergency Savings",
-      subheading: "Chase Bank • ****1234",
-      text: "Balance",
-      amount: 33450,
-      button: "connected",
-      date: "Updated 1/15/2024",
-      icon2: "pi pi-ellipsis-h",
-      icon3: "pi pi-cog",
-    },
-    {
-      icon: { name: "pi pi-credit-card", bg: "!bg-warning" },
-      heading: "Credit Card",
-      subheading: "Chase Bank • ****1234",
-      text: "Balance",
-      amount: 34507,
-      button: "connected",
-      date: "Updated 1/15/2024",
-      icon2: "pi pi-ellipsis-h",
-      icon3: "pi pi-cog",
-    },
-    {
-      icon: { name: "pi pi-credit-card", bg: "!bg-green" },
-      heading: "Investment Portfolio",
-      subheading: "Chase Bank • ****1234",
-      text: "Balance",
-      amount: 34507,
-      button: "connected",
-      date: "Updated 1/15/2024",
-      icon2: "pi pi-ellipsis-h",
-      icon3: "pi pi-cog",
-      progress: {
-        name: "Credit Utilization",
-        range: "50% of $5,000",
-      },
-    },
-  ];
-
+  // connect your account card
   const accounts = [
     {
       button: "pi pi-receipt text-primary ",
@@ -113,26 +99,144 @@ export default function page() {
     },
   ];
 
+  const inputFields: InputField[] = [
+    {
+      label: "Account Name",
+      type: "text",
+      placeholder: "e.g Primary Checking",
+      inputType: "input",
+      name: "acctName",
+    },
+    {
+      placeholder: "Select account type",
+      label: "Account Type",
+      option: [
+        "Chase Checking",
+        "Savings Account",
+        "Current Account",
+        "Credit Card",
+      ],
+      name: "acctType",
+      inputType: "select",
+    },
+    {
+      label: "Bank Name",
+      type: "text",
+      name: "bankName",
+      placeholder: "e.g Chase Bank",
+      inputType: "input",
+    },
+    {
+      label: "Current Balance",
+      type: "number",
+      name: "balance",
+      placeholder: "0.00",
+      inputType: "input",
+    },
+  ];
+
+  type FormValues = {
+    acctName: string;
+    acctType: string;
+    bankName: string;
+    balance: number;
+  };
+
+  const initialValues: FormValues = {
+    acctName: "",
+    acctType: "",
+    bankName: "",
+    balance: 0,
+  };
+
+  const validate = (values: FormValues) => {
+    const errors: Partial<FormValues> = {};
+    if (!values.acctName) errors.acctName = "Required";
+    if (!values.acctType) errors.acctType = "Required";
+    if (!values.bankName) errors.bankName = "Required";
+    return errors;
+  };
+
+  const onSubmit = async (values: FormValues) => {
+    try {
+      await addAccount(values);
+      toast.success("Account added successfully");
+      setShowModal(false);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "An error occurred";
+      toast.error(message);
+    } 
+  };
+
   return (
-    <main className="space-y-8">
+    <main className="space-y-8 ">
       <Header
         heading={accountHeader.heading}
         text={accountHeader.text}
         buttons={accountHeader.buttons}
       />
 
-      {/* cards  */}
-      <div className="grid lg:grid-cols-3   md:grid-cols-2 grid-cols-1 gap-8">
+      {/*add account form modal */}
+      {showModal && (
+        <Form<FormValues>
+          modalHeader={{
+            heading: "Add New Account",
+            text: "Connect a new bank account or add one manually",
+          }}
+          inputFields={inputFields}
+          initialValues={initialValues}
+          validate={validate}
+          onSubmit={onSubmit}
+          buttonText="Add Account"
+          onClose={() => setShowModal(false)}
+        />
+      )}
+
+      {/* asset, liability, net worth card */}
+      <div className="grid lg:grid-cols-3   sm:grid-cols-2 grid-cols-1 gap-8">
         {cards.map((card) => (
           <CardComponent key={card.heading} card={card} />
         ))}
       </div>
 
-      {/* other cards  */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {otherCards.map((item, index) => (
-          <DetailCard key={index} detail={item} />
-        ))}
+      {/* checking if there's account in the array */}
+      <div>
+        {userAccounts.length > 0 ? (
+          <p className="font-medium text-lg ">
+            {userAccounts.length} accounts added{" "}
+          </p>
+        ) : (
+          <p className="font-medium text-lg text-center">
+            {" "}
+            No accounts added yet{" "}
+          </p>
+        )}
+      </div>
+
+      {/* all user accounts  */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-8 ">
+        {userAccounts.map((item, index) => {
+          const liability = item.acctType === "Credit Card";
+          const data = {
+            icon: { name: "pi pi-credit-card" },
+            icon2: "pi pi-ellipsis-h",
+            icon3: "pi pi-cog",
+            id: item.id,
+            heading: item.acctName,
+            subheading: `${item.bankName} • ****${item.id.slice(-4)}`,
+            text: "Balance",
+            amount: hidebalences ? item.balance : "****",
+            button: "connected",
+            date: new Date(item.createdAt).toLocaleDateString(),
+            expense: liability,
+          };
+          return (
+            <div>
+              <DetailCard key={index} detail={data} />
+            </div>
+          );
+        })}
       </div>
 
       {/*connect your account   */}
@@ -150,7 +254,7 @@ export default function page() {
           ))}
         </div>
         <div>
-          <Button>
+          <Button onClick={() => setShowModal(true)}>
             <i className="pi pi-plus"></i> Connect New Bank Account
           </Button>
         </div>

@@ -3,19 +3,20 @@ import Card from "@/components/base/Card";
 import clsx from "clsx";
 
 type progressType = {
-  name?: string,
-  range?: string
-}
+  name?: string;
+  range?: string;
+};
 
 type cardtype = {
   heading?: string;
   icon?: string;
-  amount?: number ;
+  amount?: number;
   subheading?: string;
   progress?: progressType;
   bg?: string;
   outline?: boolean;
-  padding?: string
+  padding?: string;
+  expense?: string;
 };
 
 interface Props {
@@ -23,11 +24,13 @@ interface Props {
   className?: string;
 }
 
-export default function CardComponent({ card}: Props) {
+export default function CardComponent({ card }: Props) {
   return (
     <Card
       key={card.heading}
-      className={`${card.bg} ${card?.padding ? card.padding : 'p-12'} shadow-none  space-y-2`}
+      className={`${card.bg} ${
+        card?.padding ? card.padding : "p-12"
+      } shadow-none  space-y-2`}
     >
       <p
         className={clsx(
@@ -52,10 +55,11 @@ export default function CardComponent({ card}: Props) {
         <p
           className={clsx(
             "font-bold text-2xl ",
-            card.outline ? "text-green" : "text-white"
+            card.outline ? "" : "text-white",
+            card?.expense == "Expense" ? "text-error" : "text-green"
           )}
         >
-          {card?.amount &&  `$ ${card?.amount}`}
+          {card?.amount && `$ ${card?.amount}`}
         </p>{" "}
         <p
           className={clsx(

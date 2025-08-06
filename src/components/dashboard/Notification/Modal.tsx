@@ -5,12 +5,15 @@ import Card from "@/components/base/Card";
 import Button from "@/components/base/Button";
 import Tab from "@/components/base/Tab";
 import NotifyCard from "@/components/dashboard/Notification/Card";
+import ModalComponent from "@/components/base/Modal";
 
 interface Props {
   setShowNotification: any;
 }
 
 export default function Modal({ setShowNotification }: Props) {
+  const header = { heading: "Notifications", icon: "pi pi-bell" };
+
   const tabs = [
     {
       label: "All",
@@ -93,42 +96,38 @@ export default function Modal({ setShowNotification }: Props) {
     console.log(val, "active");
   };
 
-  return (
-    <Card className=" bg-white dark:bg-gray-900 space-y-6 h-screen  md:max-h-[90vh] overflow-hidden  ">
-      <div className="flex justify-between items-center">
-        <p className="font-medium  text-lg space-x-1">
-          <i className="pi pi-bell"></i> <span> Notifications</span>
-        </p>
+  const handleclose = () => {
+    setShowNotification(false)
+  }
 
-        <div className="flex text-sm  items-center gap-3">
+  return (
+    <ModalComponent fullScreen header={header} onClose={handleclose}>
+      <div className="space-y-4  ">
+        <div className="flex sticky text-sm justify-between   items-center gap-3">
           <Button variant="outline">
             <i className="pi pi-check"></i>
             Mark all read
           </Button>
           <i className="pi pi-cog"></i>
-          <i
-            className="pi pi-times cursor-pointer"
-            onClick={() => setShowNotification(false)}
-          ></i>
         </div>
-      </div>
 
-      <div className="w-full scroll-x-auto  ">
-        <Tab
-          className=""
-          options={tabs}
-          onChange={handleTabSwitch}
-          defaultValue="All"
-        ></Tab>
-      </div>
-
-      {currentView && (
-        <div className="space-y-4 scroll-y-auto  max-h-[60vh]">
-          {alerts.map((item, index) => (
-            <NotifyCard card={item} key={index} />
-          ))}
+        <div className="w-full scroll-x-auto  sticky ">
+          <Tab
+            className=""
+            options={tabs}
+            onChange={handleTabSwitch}
+            defaultValue="All"
+          ></Tab>
         </div>
-      )}
-    </Card>
+
+        {currentView && (
+          <div className="space-y-4 scroll-y-auto  max-h-[60vh]">
+            {alerts.map((item, index) => (
+              <NotifyCard card={item} key={index} />
+            ))}
+          </div>
+        )}
+      </div>
+    </ModalComponent>
   );
 }

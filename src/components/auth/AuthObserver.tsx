@@ -1,13 +1,14 @@
 "use client";
 
 import { onAuthStateChanged, auth, db, doc, getDoc } from "@/service/firebase";
-import { useAuth } from "@/store/Auth";
+import {  useDataStore } from "@/store/DataStore";
+import { User } from "@/types";
 import { useRouter } from "next/navigation";
 import  { useEffect } from "react";
 
 export default function AuthObserver() {
   const router = useRouter();
-  const { setUser } = useAuth();
+  const setState = useDataStore(state => state.setState);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -18,18 +19,19 @@ export default function AuthObserver() {
 
         if (docSnap.exists()) {
           const userData = docSnap.data();
-          setUser(userData as any, uid);
+          setState({ user: userData as User, userid: uid });
+      
         } else {
           console.log("User exists in auth but not in Firestore.");
         }
       } else {
-        setUser(null, null);
+         setState({ user: null, userid: null });
         router.push("/auth");
       }
     });
 
     return () => unsubscribe();
-  }, [router, setUser]);
+  }, [router, setState]);
 
   return null;
 }
