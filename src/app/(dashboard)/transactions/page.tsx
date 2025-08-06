@@ -203,7 +203,7 @@ export default function Page() {
 
   type FormValues = {
     type: string;
-    amount: number;
+    amount: string;
     description: string;
     category: string;
     account: string;
@@ -212,7 +212,7 @@ export default function Page() {
 
   const initialValues: FormValues = {
     type: "",
-    amount: 0,
+    amount: "",
     description: "",
     category: "",
     account: "",
@@ -279,6 +279,10 @@ export default function Page() {
     if (!values.amount) errors.amount = "Required";
     if (!values.description) errors.description = "Required";
     if (!values.category) errors.category = "Required";
+    const amount = Number(values.amount);
+    if (!amount) {
+      errors.amount = "Required";
+    }
     if (!values.account) errors.account = "Required";
     return errors;
   };
