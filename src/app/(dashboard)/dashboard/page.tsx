@@ -18,7 +18,6 @@ export default function Page() {
   const { user, getUserTransactions, } = useUser();
   const [transactions, setTransactions] = useState<any[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const [userAccounts, setUserAccounts] = useState<any[]>([]);
   const [totalBalance, setTotalBalance] = useState(0);
   const [monthlyIncome, setMonthlyIncome] = useState(0);
   const [monthlyExpense, setMonthlyExpense] = useState(0);

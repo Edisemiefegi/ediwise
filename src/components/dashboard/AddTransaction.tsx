@@ -6,7 +6,7 @@ import Form, { InputField } from "@/components/base/Form";
 import useUser from "@/hooks/useUser";
 import { toast } from "react-toastify";
 
-export default function addTransactions({ setShowModal }: any) {
+export default function AddTransactions({ setShowModal }: any) {
   const [userAccounts, setUserAccounts] = useState<any[]>([]);
 
 
