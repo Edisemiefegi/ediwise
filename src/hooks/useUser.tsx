@@ -19,6 +19,61 @@ import { User } from "@/types";
 export default function useUser() {
   const { user, reset } = useDataStore();
 
+  // const importDemoData = async () => {
+  //   const demo = data.users.demoUser123;
+
+  //   // First sign in or create the demo user
+  //   let uid: string;
+  //   try {
+  //     const userCredential = await signInWithEmailAndPassword(
+  //       auth,
+  //       demo.email,
+  //       demo.password
+  //     );
+  //     uid = userCredential.user.uid;
+  //   } catch (err: any) {
+  //     if (err.code === "auth/user-not-found") {
+  //       const newUser = await createUserWithEmailAndPassword(
+  //         auth,
+  //         demo.email,
+  //         demo.password
+  //       );
+  //       uid = newUser.user.uid;
+  //     } else {
+  //       console.error("Login error", err);
+  //       return;
+  //     }
+  //   }
+
+  //   // Prepare the user data
+  //   const { accounts, transactions, ...userInfo } = demo;
+  //   userInfo.id = uid;
+
+  //   // Set the user document
+  //   await setDoc(doc(db, "users", uid), userInfo);
+
+  //   // Set accounts
+  //   for (let accId in accounts) {
+  //     await setDoc(doc(db, `users/${uid}/accounts`, accId), accounts[accId]);
+  //   }
+
+  //   // Set transactions
+  //   for (let txnId in transactions) {
+  //     await setDoc(
+  //       doc(db, `users/${uid}/transactions`, txnId),
+  //       transactions[txnId]
+  //     );
+  //   }
+
+  //   // Update app state
+  //   const docSnap = await getDoc(doc(db, "users", uid));
+  //   if (docSnap.exists()) {
+  //     const userData = docSnap.data();
+  //     setState({ user: userData as User, userid: uid });
+  //     console.log("✅ Demo user imported and authenticated");
+  //   }
+  // };
+
   const register = async (userData: User): Promise<void> => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -158,6 +213,8 @@ export default function useUser() {
 
   const getUserTransactions = async (): Promise<any[]> => {
     if (!user?.id) return [];
+    // console.log(user, "user");
+
     const transactionsRef = query(
       collection(db, "users", user.id, "transactions"),
       orderBy("createdAt", "desc")
@@ -177,5 +234,6 @@ export default function useUser() {
     getUserAccounts,
     addTransactions,
     getUserTransactions,
+    // importDemoData,
   };
 }

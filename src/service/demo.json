@@ -1,0 +1,288 @@
+{
+  "users": {
+    "demoUser123": {
+      "createdAt": "2025-02-08T07:03:30.601148",
+      "email": "janedoe@ediwise.app",
+      "hideBalance": false,
+      "id": "KBvBZ4pVzCTN0DjSaZupHBQmUEO2",
+      "monthlyExpense": 48000,
+      "monthlyIncome": 95000,
+      "name": "Jane Doe",
+      "password": "123456",
+      "profile": "https://i.pravatar.cc/150?img=5",
+      "totalAssets": 155000,
+      "accounts": {
+        "acc1": {
+          "acctName": "Savings John",
+          "acctType": "Savings Account",
+          "balance": 100000,
+          "bankName": "GTBank",
+          "createdAt": 1740726210601,
+          "hidden": false,
+          "id": "acc1"
+        },
+        "acc2": {
+          "acctName": "Wallet",
+          "acctType": "Current Account",
+          "balance": 55000,
+          "bankName": "Ediwise Wallet",
+          "createdAt": 1741590210601,
+          "hidden": false,
+          "id": "acc2"
+        }
+      },
+      "transactions": {
+        "0494297a-126": {
+          "account": "Wallet",
+          "acctType": "Income",
+          "amount": 47548,
+          "category": "Bills & Utilities",
+          "createdAt": 1742627010601,
+          "description": "Salary transaction",
+          "id": "0494297a-126",
+          "notes": ""
+        },
+        "f3bd5e6f-571": {
+          "account": "Wallet",
+          "acctType": "Income",
+          "amount": 40202,
+          "category": "Bills & Utilities",
+          "createdAt": 1742627010601,
+          "description": "Bills & Utilities transaction",
+          "id": "f3bd5e6f-571",
+          "notes": ""
+        },
+        "d368f7c0-638": {
+          "account": "Savings John",
+          "acctType": "Income",
+          "amount": 46115,
+          "category": "Bills & Utilities",
+          "createdAt": 1742627010601,
+          "description": "Salary transaction",
+          "id": "d368f7c0-638",
+          "notes": ""
+        },
+        "f4504890-842": {
+          "account": "Savings John",
+          "acctType": "Income",
+          "amount": 29443,
+          "category": "Shopping",
+          "createdAt": 1743923010601,
+          "description": "Shopping transaction",
+          "id": "f4504890-842",
+          "notes": ""
+        },
+        "8ba9f628-335": {
+          "account": "Savings John",
+          "acctType": "Income",
+          "amount": 44314,
+          "category": "Bills & Utilities",
+          "createdAt": 1743923010601,
+          "description": "Salary transaction",
+          "id": "8ba9f628-335",
+          "notes": ""
+        },
+        "138458d3-904": {
+          "account": "Wallet",
+          "acctType": "Expense",
+          "amount": 5815,
+          "category": "Food & Dining",
+          "createdAt": 1743923010601,
+          "description": "Food transaction",
+          "id": "138458d3-904",
+          "notes": ""
+        },
+        "68ce20bb-330": {
+          "account": "Wallet",
+          "acctType": "Expense",
+          "amount": 8615,
+          "category": "Bills & Utilities",
+          "createdAt": 1743923010601,
+          "description": "Bills & Utilities transaction",
+          "id": "68ce20bb-330",
+          "notes": ""
+        },
+        "55678e16-bb6": {
+          "account": "Savings John",
+          "acctType": "Expense",
+          "amount": 1311,
+          "category": "Food & Dining",
+          "createdAt": 1743923010601,
+          "description": "Food transaction",
+          "id": "55678e16-bb6",
+          "notes": ""
+        },
+        "9109d076-d1d": {
+          "account": "Wallet",
+          "acctType": "Income",
+          "amount": 43917,
+          "category": "Shopping",
+          "createdAt": 1743923010601,
+          "description": "Freelancing transaction",
+          "id": "9109d076-d1d",
+          "notes": ""
+        },
+        "f0f94bb1-103": {
+          "account": "Wallet",
+          "acctType": "Expense",
+          "amount": 5715,
+          "category": "Travel",
+          "createdAt": 1748415810601,
+          "description": "Transport transaction",
+          "id": "f0f94bb1-103",
+          "notes": ""
+        },
+        "c3828ac9-c31": {
+          "account": "Wallet",
+          "acctType": "Income",
+          "amount": 40445,
+          "category": "Shopping",
+          "createdAt": 1748415810601,
+          "description": "Freelancing transaction",
+          "id": "c3828ac9-c31",
+          "notes": ""
+        },
+        "d4675fe7-742": {
+          "account": "Savings John",
+          "acctType": "Expense",
+          "amount": 3919,
+          "category": "Bills & Utilities",
+          "createdAt": 1748415810601,
+          "description": "Bills & Utilities transaction",
+          "id": "d4675fe7-742",
+          "notes": ""
+        },
+        "97a3276b-00b": {
+          "account": "Wallet",
+          "acctType": "Expense",
+          "amount": 3058,
+          "category": "Travel",
+          "createdAt": 1748415810601,
+          "description": "Transport transaction",
+          "id": "97a3276b-00b",
+          "notes": ""
+        },
+        "9269c2d2-7fb": {
+          "account": "Wallet",
+          "acctType": "Expense",
+          "amount": 7701,
+          "category": "Travel",
+          "createdAt": 1749366210601,
+          "description": "Transport transaction",
+          "id": "9269c2d2-7fb",
+          "notes": ""
+        },
+        "4ba0dff5-131": {
+          "account": "Wallet",
+          "acctType": "Income",
+          "amount": 44820,
+          "category": "Bills & Utilities",
+          "createdAt": 1749366210601,
+          "description": "Salary transaction",
+          "id": "4ba0dff5-131",
+          "notes": ""
+        },
+        "d270cb8c-80d": {
+          "account": "Savings John",
+          "acctType": "Income",
+          "amount": 35860,
+          "category": "Shopping",
+          "createdAt": 1749366210601,
+          "description": "Freelancing transaction",
+          "id": "d270cb8c-80d",
+          "notes": ""
+        },
+        "9bf6275b-20e": {
+          "account": "Wallet",
+          "acctType": "Income",
+          "amount": 46301,
+          "category": "Shopping",
+          "createdAt": 1752303810601,
+          "description": "Freelancing transaction",
+          "id": "9bf6275b-20e",
+          "notes": ""
+        },
+        "70c41ef0-ff2": {
+          "account": "Wallet",
+          "acctType": "Expense",
+          "amount": 11349,
+          "category": "Shopping",
+          "createdAt": 1752303810601,
+          "description": "Shopping transaction",
+          "id": "70c41ef0-ff2",
+          "notes": ""
+        },
+        "8f25d79b-c6c": {
+          "account": "Wallet",
+          "acctType": "Expense",
+          "amount": 1151,
+          "category": "Transport",
+          "createdAt": 1752303810601,
+          "description": "Transport transaction",
+          "id": "8f25d79b-c6c",
+          "notes": ""
+        },
+        "697d8560-e58": {
+          "account": "Savings John",
+          "acctType": "Income",
+          "amount": 42204,
+          "category": "Travel",
+          "createdAt": 1752303810601,
+          "description": "Freelancing transaction",
+          "id": "697d8560-e58",
+          "notes": ""
+        },
+        "476c5436-afd": {
+          "account": "Savings John",
+          "acctType": "Expense",
+          "amount": 6880,
+          "category": "Food & Dining",
+          "createdAt": 1756364610601,
+          "description": "Food transaction",
+          "id": "476c5436-afd",
+          "notes": ""
+        },
+        "d71dc990-9d0": {
+          "account": "Savings John",
+          "acctType": "Expense",
+          "amount": 8677,
+          "category": "Shopping",
+          "createdAt": 1756364610601,
+          "description": "Shopping transaction",
+          "id": "d71dc990-9d0",
+          "notes": ""
+        },
+        "22584ad1-f8a": {
+          "account": "Savings John",
+          "acctType": "Expense",
+          "amount": 12764,
+          "category": "Food & Dining",
+          "createdAt": 1756364610601,
+          "description": "Food transaction",
+          "id": "22584ad1-f8a",
+          "notes": ""
+        },
+        "55a14d26-f99": {
+          "account": "Savings John",
+          "acctType": "Income",
+          "amount": 21413,
+          "category": "Shopping",
+          "createdAt": 1756364610601,
+          "description": "Freelancing transaction",
+          "id": "55a14d26-f99",
+          "notes": ""
+        },
+        "50262c9c-610": {
+          "account": "Savings John",
+          "acctType": "Income",
+          "amount": 41403,
+          "category": "Shopping",
+          "createdAt": 1756364610601,
+          "description": "Freelancing transaction",
+          "id": "50262c9c-610",
+          "notes": ""
+        }
+      }
+    }
+  }
+}

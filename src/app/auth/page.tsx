@@ -9,13 +9,13 @@ import { Formik } from "formik";
 import Button from "@/components/base/Button";
 import Input from "@/components/base/Input";
 import AuthContainer from "@/components/auth/AuthContainer";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import useUser from "@/hooks/useUser";
 
 export default function Page() {
   const router = useRouter();
 
-  const {login} = useUser();
+  const { login,  } = useUser();
   const [loading, setloading] = useState(false);
 
   type FormValues = {
@@ -64,6 +64,23 @@ export default function Page() {
       setloading(false);
     }
   };
+  // const handleDemo = async () => {
+  //   try {
+  //     setloading(true);
+  //     await importDemoData();
+  //     toast.success("Demo sign-in successful");
+  //     router.push("/dashboard");
+  //   } catch (error) {
+  //     let message = "An error occurred during demo sign-in";
+  //     if (error instanceof Error) {
+  //       message = error.message;
+  //     }
+  //     toast.error(message);
+  //     throw error;
+  //   } finally {
+  //     setloading(false);
+  //   }
+  // };
 
   return (
     <AuthContainer
@@ -73,94 +90,108 @@ export default function Page() {
         </Link>
       }
     >
+      <div>
+        <p className="font-bold">Demo account: </p>
+        <div className="text-xs">
+          <p>coming soon..</p>
+          {/* <p>email: janedeo@ediwise.com</p>
+          <p>password: 123456</p> */}
+        </div>
 
-      <Formik<FormValues>
-        initialValues={{ email: "", password: "" }}
-        validate={(values) => {
-          const errors: Partial<FormValues> = {};
-          if (!values.email) errors.email = "Required";
-          if (!values.password) errors.password = "Required";
-          if (
-            values.email &&
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = "Invalid email address";
-          }
-          return errors;
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            setSubmitting(false);
-            handleSignin(values);
-          }, 400);
-        }}
-      >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-        
-        }) => (
-          <form onSubmit={handleSubmit} className="w-full text-start space-y-5">
-            {inputFields.map((field) => {
-              const { name } = field;
-              return (
-                <div key={name}>
-                  <Input
-                    labelUp={field.label}
-                    placeholder={field.placeholder}
-                    prepend={<i className={field.icon}></i>}
-                    type={field.type}
-                    name={name}
-                    value={values[name]}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {touched[name] && errors[name] && (
-                    <p className="text-red-500 text-sm mt-1">{errors[name]}</p>
-                  )}
-                </div>
-              );
-            })}
-
-            <Button
-              variant="text"
-              className="text-primary !px-0 !py-0 text-sm !items-start"
+        {/* form */}
+        <Formik<FormValues>
+          initialValues={{ email: "", password: "" }}
+          validate={(values) => {
+            const errors: Partial<FormValues> = {};
+            if (!values.email) errors.email = "Required";
+            if (!values.password) errors.password = "Required";
+            if (
+              values.email &&
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            ) {
+              errors.email = "Invalid email address";
+            }
+            return errors;
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            setTimeout(() => {
+              setSubmitting(false);
+              handleSignin(values);
+            }, 400);
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+          }) => (
+            <form
+              onSubmit={handleSubmit}
+              className="w-full text-start space-y-5"
             >
-              Forgot password?
-            </Button>
+              {inputFields.map((field) => {
+                const { name } = field;
+                return (
+                  <div key={name}>
+                    <Input
+                      labelUp={field.label}
+                      placeholder={field.placeholder}
+                      prepend={<i className={field.icon}></i>}
+                      type={field.type}
+                      name={name}
+                      value={values[name]}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    {touched[name] && errors[name] && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors[name]}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
 
-            <Button type="submit" disabled={loading} loading={loading} block>
-              Sign in
-            </Button>
+              <Button
+                variant="text"
+                className="text-primary !px-0 !py-0 text-sm !items-start"
+              >
+                Forgot password?
+              </Button>
 
-            <hr className="text-gray-300 dark:text-gray-700" />
+              <Button type="submit" disabled={loading} loading={loading} block>
+                Sign in
+              </Button>
+            
 
-            <Button variant="outline" block>
-              <Image
-                src="/icons/google.ico"
-                width={20}
-                height={20}
-                alt="google icon"
-              />
-              Continue with Google
-            </Button>
+              <hr className="text-gray-300 dark:text-gray-700" />
 
-            <Button variant="outline" block>
-              <Image
-                src="/icons/fb.png"
-                width={30}
-                height={30}
-                alt="facebook icon"
-              />
-              Continue with Facebook
-            </Button>
-          </form>
-        )}
-      </Formik>
+              <Button variant="outline" block>
+                <Image
+                  src="/icons/google.ico"
+                  width={20}
+                  height={20}
+                  alt="google icon"
+                />
+                Continue with Google
+              </Button>
+
+              <Button variant="outline" block>
+                <Image
+                  src="/icons/fb.png"
+                  width={30}
+                  height={30}
+                  alt="facebook icon"
+                />
+                Continue with Facebook
+              </Button>
+            </form>
+          )}
+        </Formik>
+      </div>
     </AuthContainer>
   );
 }

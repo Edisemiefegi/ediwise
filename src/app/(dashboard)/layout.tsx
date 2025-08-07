@@ -41,7 +41,7 @@ export default function Layout({ children }: DashboardLayoutProp) {
       {/* sidebar */}
       <div
         className={clsx(
-          "relative z-20   h-full",
+          "relative z-30   h-full",
           showNavbar === true
             ? "block"
             : "md:block hidden xl:w-1/5 lg:w-[30%] md:w-1/3 "
@@ -60,7 +60,7 @@ export default function Layout({ children }: DashboardLayoutProp) {
 
       {/* main content */}
       <div className="xl:w-4/5 md:w-4/6 w-full dark:bg-gray-950 dark:text-white   flex-1 overflow-y-auto ">
-        <div className="border-b sticky  top-0 bg-white z-40 dark:bg-gray-950 dark:border-gray-800 px-6 pt-4 pb-2 border-gray-300  flex items-center justify-between ">
+        <div className="border-b sticky  top-0 bg-white z-20 dark:bg-gray-950 dark:border-gray-800 px-6 pt-4 pb-2 border-gray-300  flex items-center justify-between ">
           <div className="md:block hidden">
             <h1 className="font-medium text-lg">Welcome back, {user?.name}</h1>
             <p className="text-gray">

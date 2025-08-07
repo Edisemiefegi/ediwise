@@ -11,10 +11,18 @@ import QuickActions from "@/components/dashboard/QuickActions";
 import { useRouter } from "next/navigation";
 import useUser from "@/hooks/useUser";
 
+import AddTransaction from "@/components/dashboard/AddTransaction";
+
 export default function Page() {
   const router = useRouter();
-  const { user, getUserTransactions } = useUser();
+  const { user, getUserTransactions, } = useUser();
   const [transactions, setTransactions] = useState<any[]>([]);
+  const [showModal, setShowModal] = useState(false);
+  const [userAccounts, setUserAccounts] = useState<any[]>([]);
+  const [totalBalance, setTotalBalance] = useState(0);
+  const [monthlyIncome, setMonthlyIncome] = useState(0);
+  const [monthlyExpense, setMonthlyExpense] = useState(0);
+  const [incomeVsExpense, setIncomeVsExpense] = useState<any[]>([]);
 
   const dashboardHeader = {
     heading: `Good day, ${user?.name} 👋`,
@@ -23,6 +31,7 @@ export default function Page() {
       {
         text: "Add transaction",
         icon: "pi pi-plus",
+        onclick: () => setShowModal(true),
       },
       {
         text: "View Reports",
@@ -32,39 +41,6 @@ export default function Page() {
       },
     ],
   };
-
-  const cards = [
-    {
-      heading: "Total Balance",
-      icon: "pi pi-wallet",
-      amount: 127,
-      subheading: "+2.1% from last month",
-      bg: "!bg-purple",
-    },
-    {
-      heading: "Monthly Income",
-      icon: "pi pi-arrow-down-left",
-      amount: 27,
-      subheading: "+5.2% from last month",
-      bg: "!bg-green",
-    },
-    {
-      heading: "Monthly Expenses",
-      icon: "pi pi-arrow-down-left",
-      amount: 26,
-      subheading: "-3.1% from last month",
-      bg: "!bg-warning",
-    },
-    {
-      heading: "Savings Rate",
-      icon: "pi pi-bullseye",
-      progress: {
-        name: "30.2%",
-      },
-      subheading: "Target: 20%",
-      outline: true,
-    },
-  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,7 +58,7 @@ export default function Page() {
   const history = {
     btn: {
       text: "View All",
-      onclick: () => router.push('/transactions'),
+      onclick: () => router.push("/transactions"),
     },
     transaction: transactions,
   };
@@ -142,16 +118,16 @@ export default function Page() {
       name: "Income Vs Expenses",
       subheading: "Monthly comparison for the last 6 months",
     },
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: incomeVsExpense.map((d) => d.month),
     data: [
       {
         name: "Icome",
-        values: [100, 200, 150, 300, 250, 400, 350],
+        values: incomeVsExpense.map((d) => d.income),
         color: "green",
       },
       {
         name: "Expense",
-        values: [50, 100, 150, 200, 250, 400, 350],
+        values: incomeVsExpense.map((d) => d.expense),
         color: "#FF6F61",
       },
     ],
@@ -182,6 +158,88 @@ export default function Page() {
     ],
   };
 
+  useEffect(() => {
+    if (!transactions.length) return;
+
+    let balance = 0;
+    let income = 0;
+    let expense = 0;
+    const currentMonth = new Date().getMonth();
+    const now = new Date();
+
+    const incomeExpenseByMonth = Array(6)
+      .fill(0)
+      .map((_, index) => ({
+        month: new Date(
+          now.getFullYear(),
+          currentMonth - (5 - index),
+          1
+        ).toLocaleString("default", { month: "long" }),
+        income: 0,
+        expense: 0,
+      }));
+
+    transactions.forEach((tx) => {
+      const date = new Date(tx.createdAt || tx.createdAt);
+      const monthIndex =
+        now.getMonth() -
+        (5 -
+          incomeExpenseByMonth.findIndex(
+            (m) => m.month === date.toLocaleString("default", { month: "long" })
+          ));
+
+      if (tx.category.toLowerCase().includes("income")) {
+        balance += tx.amount;
+        if (date.getMonth() === currentMonth) income += tx.amount;
+        if (monthIndex >= 0 && monthIndex < 6)
+          incomeExpenseByMonth[monthIndex].income += tx.amount;
+      } else {
+        balance -= tx.amount;
+        if (date.getMonth() === currentMonth) expense += tx.amount;
+        if (monthIndex >= 0 && monthIndex < 6)
+          incomeExpenseByMonth[monthIndex].expense += tx.amount;
+      }
+    });
+
+    setTotalBalance(balance);
+    setMonthlyIncome(income);
+    setMonthlyExpense(expense);
+    setIncomeVsExpense(incomeExpenseByMonth);
+  }, [transactions]);
+
+  const cards = [
+    {
+      heading: "Total Balance",
+      icon: "pi pi-wallet",
+      amount: totalBalance,
+      subheading: "+2.1% from last month",
+      bg: "!bg-purple",
+    },
+    {
+      heading: "Monthly Income",
+      icon: "pi pi-arrow-down-left",
+      amount: monthlyIncome,
+      subheading: "+5.2% from last month",
+      bg: "!bg-green",
+    },
+    {
+      heading: "Monthly Expenses",
+      icon: "pi pi-arrow-down-left",
+      amount: monthlyExpense,
+      subheading: "-3.1% from last month",
+      bg: "!bg-warning",
+    },
+    {
+      heading: "Savings Rate",
+      icon: "pi pi-bullseye",
+      progress: {
+        name: "30.2%",
+      },
+      subheading: "Target: 20%",
+      outline: true,
+    },
+  ];
+
   return (
     <main className="space-y-8">
       <Header
@@ -189,6 +247,9 @@ export default function Page() {
         text={dashboardHeader.text}
         buttons={dashboardHeader.buttons}
       />
+
+      {/* Add Transaction Modal */}
+      {showModal && <AddTransaction setShowModal={setShowModal} />}
 
       {/* cards  */}
       <div className="grid xl:grid-cols-4    sm:grid-cols-2 grid-cols-1 gap-6">
@@ -213,12 +274,6 @@ export default function Page() {
 
       {/* history */}
       <div className=" flex gap-6 lg:flex-row flex-col">
-        {/* {history.transaction.map((item, index) => {
-          const data = {heading: item.description, text: item.category, d}
-          return <div>
-
-          </div>
-        })} */}
         <Transactions transactions={history.transaction} button={history.btn} />
         <Transactions
           transactions={bills.history}
