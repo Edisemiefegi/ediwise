@@ -11,11 +11,13 @@ import Input from "@/components/base/Input";
 import AuthContainer from "@/components/auth/AuthContainer";
 import { toast } from "react-toastify";
 import useUser from "@/hooks/useUser";
+import demoData from "@/service/demo.json"
 
 export default function Page() {
   const router = useRouter();
 
-  const { login,  } = useUser();
+  const { login, importDemoData } = useUser();
+
   const [loading, setloading] = useState(false);
 
   type FormValues = {
@@ -49,10 +51,20 @@ export default function Page() {
   const handleSignin = async (values: FormValues) => {
     try {
       setloading(true);
-      await login(values.email, values.password);
+      if (
+        values.email.trim() === demoData.email &&
+        values.password.trim() === demoData.password
+      ) {
+        console.log(values.email, values.password, "handle signin");
+
+        await importDemoData(); // Import data only if it's the demo account
+      } else {
+        await login(values.email, values.password);
+      }
+
       toast.success("sign in successful");
       router.push("/dashboard");
-      // console.log(user, "user from store");
+      console.log( "testing ");
     } catch (error) {
       let message = "An error occurred during sign in";
       if (error instanceof Error) {
@@ -93,9 +105,8 @@ export default function Page() {
       <div>
         <p className="font-bold">Demo account: </p>
         <div className="text-xs">
-          <p>coming soon..</p>
-          {/* <p>email: janedeo@ediwise.com</p>
-          <p>password: 123456</p> */}
+          <p>email: janedeo@ediwise.app</p>
+          <p>password: 123456</p>
         </div>
 
         {/* form */}
@@ -165,7 +176,6 @@ export default function Page() {
               <Button type="submit" disabled={loading} loading={loading} block>
                 Sign in
               </Button>
-            
 
               <hr className="text-gray-300 dark:text-gray-700" />
 

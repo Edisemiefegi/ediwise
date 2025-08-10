@@ -18,7 +18,7 @@ export default function Page() {
   const [userAccounts, setUserAccounts] = useState<any[]>([]);
   const [transactions, setTransactions] = useState<any[]>([]);
 
-  const { getUserAccounts, getUserTransactions } = useUser();
+  const { getUserAccounts, getUserTransactions,  } = useUser();
 
   const [filterValues, setFilterValues] = useState({
     search: "",

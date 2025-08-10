@@ -1,6 +1,5 @@
-{
-  "users": {
-    "demoUser123": {
+
+  {
       "createdAt": "2025-02-08T07:03:30.601148",
       "email": "janedoe@ediwise.app",
       "hideBalance": false,
@@ -284,5 +283,3 @@
         }
       }
     }
-  }
-}

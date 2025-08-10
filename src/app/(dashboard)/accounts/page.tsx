@@ -13,9 +13,15 @@ import Form, { InputField } from "@/components/base/Form";
 
 export default function Page() {
   const [showModal, setShowModal] = useState(false);
-  const { getUserAccounts, addAccount } = useUser();
+  const { getUserAccounts, addAccount, toggleHideBalance, user } = useUser();
   const [userAccounts, setUserAccounts] = useState<any[]>([]);
   const [hidebalences, setHideBalances] = useState(false);
+
+  useEffect(() => {
+    if (user?.hideBalance !== undefined) {
+      setHideBalances(user.hideBalance);
+    }
+  }, [user]);
 
   const accountHeader = {
     heading: "Accounts",
@@ -25,7 +31,8 @@ export default function Page() {
         text: hidebalences ? "Hide Balances" : "Show Balances",
         icon: hidebalences ? "pi pi-eye-slash" : "pi pi-eye",
         outline: true,
-        onclick: () => setHideBalances(!hidebalences),
+        onclick: async () =>
+          await toggleHideBalance(hidebalences, setHideBalances),
       },
       {
         text: "Add Account",
@@ -166,7 +173,7 @@ export default function Page() {
       const message =
         error instanceof Error ? error.message : "An error occurred";
       toast.error(message);
-    } 
+    }
   };
 
   return (
@@ -233,7 +240,7 @@ export default function Page() {
           };
           return (
             <div key={index}>
-              <DetailCard  detail={data} />
+              <DetailCard detail={data} />
             </div>
           );
         })}

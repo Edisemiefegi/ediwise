@@ -10,7 +10,7 @@ export default function AddTransactions({ setShowModal }: any) {
   const [userAccounts, setUserAccounts] = useState<any[]>([]);
 
 
-  const { addTransactions, getUserAccounts, getUserTransactions } = useUser();
+  const { addTransactions, getUserAccounts, getUserTransactions,} = useUser();
 
   // Fetch accounts and transactions
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function AddTransactions({ setShowModal }: any) {
     {
       placeholder: "Select type",
       label: "Type",
-      option: ["Income", "Expense", "Transfer"],
+      option: ["Income", "Expense"],
       name: "type",
       inputType: "select",
     },

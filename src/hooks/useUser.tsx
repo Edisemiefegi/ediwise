@@ -15,64 +15,58 @@ import {
   orderBy,
 } from "@/service/firebase";
 import { User } from "@/types";
+import demoData from "../service/demo.json";
 
 export default function useUser() {
   const { user, reset } = useDataStore();
 
-  // const importDemoData = async () => {
-  //   const demo = data.users.demoUser123;
+  const importDemoData = async (): Promise<void> => {
+    let uid: string;
 
-  //   // First sign in or create the demo user
-  //   let uid: string;
-  //   try {
-  //     const userCredential = await signInWithEmailAndPassword(
-  //       auth,
-  //       demo.email,
-  //       demo.password
-  //     );
-  //     uid = userCredential.user.uid;
-  //   } catch (err: any) {
-  //     if (err.code === "auth/user-not-found") {
-  //       const newUser = await createUserWithEmailAndPassword(
-  //         auth,
-  //         demo.email,
-  //         demo.password
-  //       );
-  //       uid = newUser.user.uid;
-  //     } else {
-  //       console.error("Login error", err);
-  //       return;
-  //     }
-  //   }
+    try {
+      // Try signing in with the demo account
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        demoData.email,
+        demoData.password
+      );
+      uid = userCredential.user.uid;
+    } catch (err: any) {
+      // If account doesn't exist, create it
+      if (err.code === "auth/invalid-credential") {
+        const newUser = await createUserWithEmailAndPassword(
+          auth,
+          demoData.email,
+          demoData.password
+        );
+        uid = newUser.user.uid;
+      } else {
+        throw err;
+      }
+    }
 
-  //   // Prepare the user data
-  //   const { accounts, transactions, ...userInfo } = demo;
-  //   userInfo.id = uid;
+    // Check if user data already exists in Firestore
+    const userDoc = await getDoc(doc(db, "users", uid));
+    if (!userDoc.exists()) {
+      // Save main user document
+      const { accounts, transactions, ...userInfo } = demoData;
+      await setDoc(doc(db, "users", uid), { ...userInfo, id: uid });
 
-  //   // Set the user document
-  //   await setDoc(doc(db, "users", uid), userInfo);
+      // Save accounts
+      for (const [accId, accData] of Object.entries(accounts)) {
+        await setDoc(doc(db, `users/${uid}/accounts`, accId), accData);
+      }
 
-  //   // Set accounts
-  //   for (let accId in accounts) {
-  //     await setDoc(doc(db, `users/${uid}/accounts`, accId), accounts[accId]);
-  //   }
+      // Save transactions
+      for (const [txnId, txnData] of Object.entries(transactions)) {
+        await setDoc(doc(db, `users/${uid}/transactions`, txnId), txnData);
+      }
 
-  //   // Set transactions
-  //   for (let txnId in transactions) {
-  //     await setDoc(
-  //       doc(db, `users/${uid}/transactions`, txnId),
-  //       transactions[txnId]
-  //     );
-  //   }
-
-  //   // Update app state
-  //   const docSnap = await getDoc(doc(db, "users", uid));
-  //   if (docSnap.exists()) {
-  //     const userData = docSnap.data();
-  //     setState({ user: userData as User, userid: uid });
-  //     console.log("✅ Demo user imported and authenticated");
-  //   }
-  // };
+      console.log("✅ Demo data imported to Firestore");
+    } else {
+      console.log("ℹ️ Demo account already exists in Firestore");
+    }
+  };
 
   const register = async (userData: User): Promise<void> => {
     try {
@@ -199,16 +193,36 @@ export default function useUser() {
         ? currentBalance - data.amount
         : currentBalance + data.amount;
 
-    console.log(newBalance, "newbalance");
+    // console.log(newBalance, "newbalance");
 
     // Update the account
     await updateDoc(accountRef, {
       balance: newBalance,
     });
 
-    console.log("Transaction added and balance updated:", data);
+    // console.log("Transaction added and balance updated:", data);
 
     // console.log("transaction added successfully", data);
+  };
+
+  const toggleHideBalance = async (
+    hideBalances: boolean,
+    setHideBalances: any
+  ) => {
+    if (!user?.id) return;
+
+    try {
+      const newValue = !hideBalances;
+
+      setHideBalances(newValue);
+
+      const userRef = doc(db, "users", user.id);
+      await updateDoc(userRef, {
+        hideBalance: newValue,
+      });
+    } catch (error) {
+      console.error("Error updating hideBalance:", error);
+    }
   };
 
   const getUserTransactions = async (): Promise<any[]> => {
@@ -234,6 +248,7 @@ export default function useUser() {
     getUserAccounts,
     addTransactions,
     getUserTransactions,
-    // importDemoData,
+    importDemoData,
+    toggleHideBalance,
   };
 }

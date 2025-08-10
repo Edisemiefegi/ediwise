@@ -7,15 +7,15 @@ import Card from "@/components/base/Card";
 import Transactions from "@/components/dashboard/Transactions";
 import PieChart from "@/components/charts/PieChart";
 import LineChart from "@/components/charts/LineChart";
-import QuickActions from "@/components/dashboard/QuickActions";
 import { useRouter } from "next/navigation";
 import useUser from "@/hooks/useUser";
+import Button from "@/components/base/Button";
 
 import AddTransaction from "@/components/dashboard/AddTransaction";
 
 export default function Page() {
   const router = useRouter();
-  const { user, getUserTransactions, } = useUser();
+  const { user, getUserTransactions } = useUser();
   const [transactions, setTransactions] = useState<any[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [totalBalance, setTotalBalance] = useState(0);
@@ -158,45 +158,55 @@ export default function Page() {
   };
 
   useEffect(() => {
-    if (!transactions.length) return;
+    if (!transactions || transactions.length === 0) return;
 
     let balance = 0;
     let income = 0;
     let expense = 0;
-    const currentMonth = new Date().getMonth();
     const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
 
-    const incomeExpenseByMonth = Array(6)
-      .fill(0)
-      .map((_, index) => ({
-        month: new Date(
-          now.getFullYear(),
-          currentMonth - (5 - index),
-          1
-        ).toLocaleString("default", { month: "long" }),
+    // Prepare last 6 months data
+    const incomeExpenseByMonth = Array.from({ length: 6 }, (_, i) => {
+      const date = new Date(currentYear, currentMonth - (5 - i), 1);
+      return {
+        month: date.toLocaleString("default", { month: "long" }),
+        year: date.getFullYear(),
         income: 0,
         expense: 0,
-      }));
+      };
+    });
 
     transactions.forEach((tx) => {
-      const date = new Date(tx.createdAt || tx.createdAt);
-      const monthIndex =
-        now.getMonth() -
-        (5 -
-          incomeExpenseByMonth.findIndex(
-            (m) => m.month === date.toLocaleString("default", { month: "long" })
-          ));
+      const date = new Date(tx.createdAt);
+      const txMonth = date.getMonth();
+      const txYear = date.getFullYear();
 
-      if (tx.category.toLowerCase().includes("income")) {
+      // Adjust balance
+      if (tx.acctType === "Income") {
         balance += tx.amount;
-        if (date.getMonth() === currentMonth) income += tx.amount;
-        if (monthIndex >= 0 && monthIndex < 6)
-          incomeExpenseByMonth[monthIndex].income += tx.amount;
+        if (txMonth === currentMonth && txYear === currentYear)
+          income += tx.amount;
       } else {
         balance -= tx.amount;
-        if (date.getMonth() === currentMonth) expense += tx.amount;
-        if (monthIndex >= 0 && monthIndex < 6)
-          incomeExpenseByMonth[monthIndex].expense += tx.amount;
+        if (txMonth === currentMonth && txYear === currentYear)
+          expense += tx.amount;
+      }
+
+      // Find matching month in the array
+      const monthObj = incomeExpenseByMonth.find(
+        (m) =>
+          m.month === date.toLocaleString("default", { month: "long" }) &&
+          m.year === txYear
+      );
+
+      if (monthObj) {
+        if (tx.acctType === "Income") {
+          monthObj.income += tx.amount;
+        } else {
+          monthObj.expense += tx.amount;
+        }
       }
     });
 
@@ -236,6 +246,24 @@ export default function Page() {
       },
       subheading: "Target: 20%",
       outline: true,
+    },
+  ];
+
+  const quickButtons = [
+    {
+      icon: "pi pi-plus",
+      name: "Add Income",
+      onclick: () => setShowModal(true),
+    },
+    {
+      icon: "pi pi-credit-card",
+      name: "Add Expense",
+      onclick: () => setShowModal(true),
+    },
+    {
+      icon: "pi pi-bullseye",
+      name: "Set Budget",
+      onclick: () => router.push("/budgets"),
     },
   ];
 
@@ -285,7 +313,25 @@ export default function Page() {
 
       {/* quick actions */}
       <div>
-        <QuickActions />
+        <Card>
+          <h1 className="font-semibold text-xl ">Quick Actions</h1>
+          <p className="text-gray mb-6 mt-1">
+            Manage your finances efficiently
+          </p>
+          <div className="grid gap-5  md:grid-cols-3 grid-cols-2 w-full">
+            {quickButtons.map((btn) => (
+              <div className="w-full" key={btn.name}>
+                <Button
+                  variant="outline"
+                  onClick={btn.onclick}
+                  className="flex w-full py-5 !px-2  !flex-col"
+                >
+                  <i className={btn.icon}></i> <span>{btn.name}</span>
+                </Button>
+              </div>
+            ))}
+          </div>
+        </Card>{" "}
       </div>
     </main>
   );

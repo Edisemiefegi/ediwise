@@ -93,12 +93,23 @@ export default function Layout({ children }: DashboardLayoutProp) {
                 <i className="pi pi-moon "></i>
               )}
             </span>{" "}
-            <div className=" w-10 h-10">
+            <div className=" ">
               <Button
                 rounded
                 onClick={() => setShowProfile((prev) => !prev)}
-                className="w-full h-full bg-secondary"
-              ></Button>
+                className="w-10  !p-0 h-10 bg-secondary !text-gray-800 dark:!text-white dark:bg-gray-900"
+              >
+                {" "}
+                {user?.profile ? (
+                  <img
+                    src={user.profile}
+                    alt={user.name}
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                ) : (
+                  user?.name?.slice(0, 2).toUpperCase()
+                )}
+              </Button>
               {showProfile && (
                 <div className="absolute  w-40 right-8 top-17 transition-all duration-300 ease-in-out">
                   <Card className=" w-fit">
