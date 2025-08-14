@@ -288,11 +288,24 @@ export default function Page() {
       {/* charts */}
       <div className=" flex gap-6 lg:flex-row flex-col">
         <Card>
-          <LineChart
-            data={lineChartData.data}
-            labels={lineChartData.labels}
-            title={lineChartData.title}
-          />
+          {lineChartData.data.every(
+            (dataset) => dataset.values.length === 0
+          ) ? (
+            <div>
+              <div>
+                {" "}
+                <h2 className="text-xl font-bold">{lineChartData.title.name}</h2>
+                <p className="text-sm text-gray">{lineChartData.title.subheading}</p>
+              </div>{" "}
+              <p className="pt-10 text-gray">Not enough data yet..</p>
+            </div>
+          ) : (
+            <LineChart
+              data={lineChartData.data}
+              labels={lineChartData.labels}
+              title={lineChartData.title}
+            />
+          )}
         </Card>
         <Card>
           <PieChart data={PieChartData.data} title={PieChartData.title} />
