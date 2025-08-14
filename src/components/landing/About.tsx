@@ -55,7 +55,7 @@ export default function About() {
   ];
 
   return (
-    <main className="space-y-20">
+    <main className="space-y-20  dark:text-white ">
       <div className="container  w-10/12 mx-auto   ">
         <div className="flex flex-col gap-10 items-center">
           <div className="text-center w-full md:w-3/4 space-y-3">
@@ -86,7 +86,7 @@ export default function About() {
       </div>
 
       {/* testimonials */}
-      <div className="bg-secondary py-20">
+      <div className="bg-secondary dark:bg-gray-950  py-20">
         <div className=" flex container  w-10/12 mx-auto  flex-col  gap-10 items-center ">
         <div className="text-center w-full md:w-3/4 space-y-3">
           <h1 className="text-4xl font-bold">

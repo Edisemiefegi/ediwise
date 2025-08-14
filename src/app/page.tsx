@@ -6,7 +6,7 @@ import Pricing from "@/components/landing/Pricing";
 
 export default function Home() {
   return (
-    <main className="">
+    <main className="dark:bg-gray-950">
       <Navbar />
       <div className="md:py-16 py-10 space-y-20">
         <section id="Features">
@@ -26,7 +26,7 @@ export default function Home() {
           <Contact />
         </section>
       </div>
-      <div className="bg-secondary ">
+      <div className="bg-secondary dark:bg-gray-950 dark:border-t dark:border-gray-800 ">
         <div className="flex text-xs  container w-10/12 mx-auto p-4 justify-between">
           <p className=" text-gray">© 2025 EdiWise. All rights reserved.</p>
           <a

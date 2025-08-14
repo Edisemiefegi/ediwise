@@ -77,7 +77,7 @@ export default function Features() {
   ];
 
   return (
-    <main className="max-h-screen h-fit bg-sky-100/10 pt-20  ">
+    <main className="max-h-screen  dark:bg-gray-950 dark:text-white h-fit bg-sky-100/10 pt-20  ">
       <div className=" container w-10/12 mx-auto  grid grid-cols-1 md:grid-cols-2 gap-8 ">
         <div className="space-y-4">
           <h1 className="font-bold text-4xl lg:text-6xl">

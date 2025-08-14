@@ -9,7 +9,7 @@ export default function Pricing() {
   ];
 
   return (
-    <div className="bg-secondary">
+    <div className="bg-secondary dark:bg-gray-950">
       <div className="container w-10/12 mx-auto py-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4  justify-between ">
         {price.map((item, index) => (
           <div key={index} className="text-center">
