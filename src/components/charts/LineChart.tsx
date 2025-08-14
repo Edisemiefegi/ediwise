@@ -104,7 +104,7 @@ export default function LineChart({
     <div className=" ">
       <p className="text-xl font-semibold ">
         {" "}
-        <i className="pi pi-chart-line mr-2"></i>
+       {title?.name &&  <i className="pi pi-chart-line mr-2"></i>}
         {title?.name}{" "}
       </p>
       <p className="text-sm text-gray">{title?.subheading}</p>

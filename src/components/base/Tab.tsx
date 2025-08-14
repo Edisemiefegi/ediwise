@@ -49,13 +49,20 @@ export default function Tab({
   }, [defaultValue, usesRouting]);
 
   const handleClick = (option: TabOptions) => {
-    if (option.path) {
-      router.push(option.path);
-      setShowNavbar?.(false);
-    } else {
-      setActiveTab(option.value);
-      onChange?.(option.value); // notify parent
+   if (option.path) {
+    router.push(option.path);
+    setShowNavbar?.(false);
+  } else {
+    // Scroll to section if it exists
+    const section = document.getElementById(option.value);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
     }
+
+    setActiveTab(option.value);
+    onChange?.(option.value);
+    setShowNavbar?.(false); // close mobile nav
+  }
   };
 
   const isVertical = className.includes("flex-col");
