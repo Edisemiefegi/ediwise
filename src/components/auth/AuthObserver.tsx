@@ -3,11 +3,12 @@
 import { onAuthStateChanged, auth, db, doc, getDoc } from "@/service/firebase";
 import {  useDataStore } from "@/store/DataStore";
 import { User } from "@/types";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import  { useEffect } from "react";
 
 export default function AuthObserver() {
   const router = useRouter();
+   const pathname = usePathname();
   const setState = useDataStore(state => state.setState);
 
   useEffect(() => {
@@ -26,7 +27,10 @@ export default function AuthObserver() {
         }
       } else {
          setState({ user: null, userid: null });
-        router.push("/auth");
+       const guestAllowedRoutes = ["/", "/auth"];
+        if (!guestAllowedRoutes.includes(pathname)) {
+          router.push("/auth");
+        }
       }
     });
 
