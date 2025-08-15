@@ -59,7 +59,7 @@ export default function About() {
       <div className="container  w-10/12 mx-auto   ">
         <div className="flex flex-col gap-10 items-center">
           <div className="text-center w-full md:w-3/4 space-y-3">
-            <h1 className="text-4xl font-bold">
+            <h1 className="sm:text-4xl text-2xl font-bold">
               Everything you need to manage your finances
             </h1>
             <p className="text-lg text-gray">
@@ -87,9 +87,9 @@ export default function About() {
 
       {/* testimonials */}
       <div className="bg-secondary dark:bg-gray-950  py-20">
-        <div className=" flex container  w-10/12 mx-auto  flex-col  gap-10 items-center ">
-        <div className="text-center w-full md:w-3/4 space-y-3">
-          <h1 className="text-4xl font-bold">
+        <div className=" flex container w-10/12 mx-auto  flex-col  gap-10 items-center ">
+        <div className="text-center  w-full md:w-3/4 space-y-3">
+          <h1 className="sm:text-4xl text-2xl font-bold">
             Everything you need to manage your finances
           </h1>
           <p className="text-lg text-gray">
